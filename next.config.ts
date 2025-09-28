@@ -1,7 +1,11 @@
 import type { NextConfig } from 'next';
 
-// Nota: La API typed actual no expone todavía experimental.turbopack.root en tipos.
-// Para mitigar el warning podríamos usar un cast o suprimir tipos; se deja comentario.
-const nextConfig: NextConfig = {};
+// Añadimos turbopack.root mediante cast para silenciar warning de lockfiles múltiples.
+const nextConfig = {
+  experimental: {
+    // @ts-expect-error: propiedad no tipada aún en Next types
+    turbopack: { root: __dirname },
+  },
+} satisfies NextConfig;
 
 export default nextConfig;

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { NextIntlClientProvider } from 'next-intl';
+import esCommon from '../../locales/es/common.json';
 
 export const metadata: Metadata = {
   title: {
@@ -17,8 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased bg-background text-foreground">{children}</body>
+    <html lang="es" suppressHydrationWarning>
+      <body className="antialiased bg-background text-foreground">
+        <NextIntlClientProvider locale="es" messages={esCommon}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }

@@ -40,5 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local supabase instance
-/supabase
+# local supabase instance (mantener migraciones versionadas)
+/supabase/.branches
+/supabase/.temp
+/supabase/docker
+/supabase/.env
+!/supabase/migrations

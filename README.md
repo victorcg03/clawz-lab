@@ -1,3 +1,25 @@
+# Clawz Lab
+
+E-commerce de diseños de uñas personalizados (Next.js App Router + Supabase).
+
+## Scripts
+
+Ver `package.json` para scripts de desarrollo, pruebas y tooling.
+
+## Roadmap (iterativo)
+
+1. Tooling & migraciones (en progreso)
+2. Infra layouts + i18n
+3. Auth + páginas públicas
+4. Catálogo & PDP
+5. Carrito & Checkout
+6. Wizard Custom
+7. Panel Admin
+8. SEO & A11y & Tests E2E
+
+## Licencia
+
+Privado.
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

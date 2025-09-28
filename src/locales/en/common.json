@@ -1,0 +1,19 @@
+{
+  "app.title": "Clawz Lab",
+  "nav.measure": "Measure",
+  "measure.heading": "Ring Size Guide",
+  "measure.intro": "Enter the internal diameter (mm) for each finger. You can leave blank those you skip now.",
+  "measure.left": "Left Hand",
+  "measure.right": "Right Hand",
+  "measure.save": "Save profile",
+  "measure.update": "Update profile",
+  "measure.delete": "Delete",
+  "measure.empty": "No profiles yet.",
+  "measure.created": "Profile created",
+  "measure.updated": "Profile updated",
+  "measure.deleted": "Profile deleted",
+  "form.required": "Field required",
+  "form.invalidNumber": "Invalid number",
+  "form.min": "Too small",
+  "form.max": "Too large"
+}

@@ -1,11 +1,14 @@
 import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
 
-// Añadimos turbopack.root mediante cast para silenciar warning de lockfiles múltiples.
-const nextConfig = {
-  experimental: {
-    // @ts-expect-error: propiedad no tipada aún en Next types
-    turbopack: { root: __dirname },
+// Configuración base Next.js
+const config: NextConfig = {
+  turbopack: {
+    // Forzamos root para evitar inferencia hacia carpeta padre con lockfile diferente
+    root: __dirname,
   },
-} satisfies NextConfig;
+};
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+
+export default withNextIntl(config);

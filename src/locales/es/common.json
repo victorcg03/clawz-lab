@@ -1,0 +1,19 @@
+{
+  "app.title": "Clawz Lab",
+  "nav.measure": "Medir talla",
+  "measure.heading": "Guía de medidas de anillos",
+  "measure.intro": "Introduce el diámetro interno (mm) de cada dedo. Puedes dejar en blanco los que no midas ahora.",
+  "measure.left": "Mano Izquierda",
+  "measure.right": "Mano Derecha",
+  "measure.save": "Guardar perfil",
+  "measure.update": "Actualizar perfil",
+  "measure.delete": "Eliminar",
+  "measure.empty": "No hay perfiles todavía.",
+  "measure.created": "Perfil creado",
+  "measure.updated": "Perfil actualizado",
+  "measure.deleted": "Perfil eliminado",
+  "form.required": "Campo obligatorio",
+  "form.invalidNumber": "Número inválido",
+  "form.min": "Valor demasiado pequeño",
+  "form.max": "Valor demasiado grande"
+}

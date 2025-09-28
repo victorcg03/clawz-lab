@@ -1,6 +1,4 @@
-const config = {
+export default {
   locales: ['es', 'en'],
   defaultLocale: 'es',
 };
-
-export default config;

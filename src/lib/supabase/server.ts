@@ -1,25 +1,35 @@
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 
-/**
- * Server helper para usar en RSC (read-only) o en server actions / route handlers.
- * La API nueva de @supabase/ssr admite cookies.getAll()/setAll().
- * Aquí sólo leemos; para escritura real (signIn/out) se recomienda usar acciones/handlers.
- */
-interface CookieStoreLike {
-  getAll?: () => { name: string; value: string }[];
-}
-export function supabaseServer() {
-  const cookieStore = cookies() as unknown as CookieStoreLike;
+/** Writable: server actions y route handlers (puede escribir cookies). */
+export async function supabaseServer() {
+  const cookieStore = await cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll: () =>
-          typeof cookieStore.getAll === 'function' ? cookieStore.getAll() : [],
+        getAll: () => cookieStore.getAll(),
+        setAll: (toSet) => {
+          for (const { name, value, options } of toSet)
+            cookieStore.set(name, value, options);
+        },
+      },
+    },
+  );
+}
+
+/** Read-only: Server Components (layouts/pages). */
+export async function supabaseServerReadonly() {
+  const cookieStore = await cookies();
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll: () => cookieStore.getAll(),
         setAll: () => {
-          // No escribimos en RSC; en acciones del servidor utilizar un helper que propague las cookies.
+          /* noop en RSC */
         },
       },
     },

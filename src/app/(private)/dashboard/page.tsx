@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/Button';
 
 async function getDashboardData() {
   const supabase = await supabaseServerReadonly();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -48,20 +47,23 @@ async function getDashboardData() {
 
 function DashboardSkeleton() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="animate-pulse">
-        <div className="h-8 bg-gray-200 rounded w-64 mb-8"></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <main className="p-8 space-y-6 max-w-6xl mx-auto">
+      <div className="animate-pulse space-y-6">
+        <div className="h-8 bg-neutral-200 dark:bg-neutral-800 rounded w-64"></div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-32 bg-gray-200 rounded-lg"></div>
+            <div
+              key={i}
+              className="h-32 bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800"
+            ></div>
           ))}
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="h-64 bg-gray-200 rounded-lg"></div>
-          <div className="h-64 bg-gray-200 rounded-lg"></div>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="h-64 bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800"></div>
+          <div className="h-64 bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800"></div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -77,154 +79,131 @@ async function DashboardContent() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending_quote':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-300';
       case 'quoted':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300';
       case 'accepted':
-        return 'bg-green-100 text-green-800';
+        return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300';
       case 'in_production':
-        return 'bg-purple-100 text-purple-800';
+        return 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300';
       case 'ready':
-        return 'bg-emerald-100 text-emerald-800';
+        return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300';
       case 'shipped':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-300';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-300';
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="p-8 space-y-6 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+      <header>
+        <h1 className="text-2xl font-semibold tracking-tight mb-2">
           ¡Hola, {profile?.name || 'Usuario'}!
         </h1>
-        <p className="text-gray-600">Bienvenida a tu panel de control personal</p>
-      </div>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          Bienvenida a tu panel de control personal
+        </p>
+      </header>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <Link
-          href="/custom"
-          className="group p-6 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl text-white hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold mb-1">Nuevo Encargo</h3>
-              <p className="text-pink-100 text-sm">Diseña tus uñas personalizadas</p>
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          {
+            title: 'Nuevo Encargo',
+            desc: 'Diseña tus uñas personalizadas',
+            href: '/custom',
+            icon: 'M12 6v6m0 0v6m0-6h6m-6 0H6',
+          },
+          {
+            title: 'Catálogo',
+            desc: 'Explora nuestros diseños',
+            href: '/shop',
+            icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+          },
+          {
+            title: 'Mis Medidas',
+            desc:
+              sizeProfiles.length > 0
+                ? `${sizeProfiles.length} perfiles`
+                : 'Agregar medidas',
+            href: '/measure',
+            icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+          },
+        ].map((card) => (
+          <Link
+            key={card.title}
+            href={card.href}
+            className="group surface-card p-4 hover:shadow-md transition-all duration-200"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-medium mb-1">{card.title}</h3>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {card.desc}
+                </p>
+              </div>
+              <svg
+                className="w-5 h-5 text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={card.icon}
+                />
+              </svg>
             </div>
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-          </div>
-        </Link>
-
-        <Link
-          href="/shop"
-          className="group p-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl text-white hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold mb-1">Catálogo</h3>
-              <p className="text-blue-100 text-sm">Explora nuestros diseños</p>
-            </div>
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
-          </div>
-        </Link>
-
-        <Link
-          href="/measure"
-          className="group p-6 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl text-white hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold mb-1">Mis Medidas</h3>
-              <p className="text-emerald-100 text-sm">
-                {sizeProfiles.length > 0
-                  ? `${sizeProfiles.length} perfiles`
-                  : 'Agregar medidas'}
-              </p>
-            </div>
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-        </Link>
-      </div>
+          </Link>
+        ))}
+      </section>
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <section className="grid gap-8 lg:grid-cols-2">
         {/* Custom Requests */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Encargos Recientes</h2>
+        <div className="surface-card overflow-hidden">
+          <div className="px-4 py-3 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
+            <h2 className="text-sm font-medium">Encargos Recientes</h2>
             <Link
               href="/custom-requests"
-              className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+              className="text-xs text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
             >
-              Ver todos
+              Ver todos →
             </Link>
           </div>
 
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
             {customRequests.length > 0 ? (
               customRequests.map((request) => (
-                <div key={request.id} className="px-6 py-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-medium text-gray-900">
+                <div key={request.id} className="px-4 py-3">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-xs font-medium">
                       Encargo #{request.id.slice(-6)}
                     </h3>
                     <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(request.status)}`}
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(request.status)}`}
                     >
                       {request.status}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 mb-2">
-                    {request.description?.slice(0, 100)}...
-                  </p>
-                  <p className="text-xs text-gray-500">
+                  {request.description && (
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2 line-clamp-2">
+                      {request.description.slice(0, 80)}...
+                    </p>
+                  )}
+                  <p className="text-xs text-neutral-500">
                     {new Date(request.created_at).toLocaleDateString('es-ES')}
                   </p>
                 </div>
               ))
             ) : (
-              <div className="px-6 py-8 text-center">
+              <div className="px-4 py-8 text-center">
                 <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
+                  className="mx-auto h-8 w-8 text-neutral-400 mb-2"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -236,60 +215,60 @@ async function DashboardContent() {
                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                   />
                 </svg>
-                <h3 className="mt-2 text-sm font-medium text-gray-900">
+                <h3 className="text-xs font-medium text-neutral-900 dark:text-neutral-100 mb-1">
                   No hay encargos
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="text-xs text-neutral-500 mb-4">
                   Comienza creando tu primer diseño personalizado
                 </p>
-                <div className="mt-6">
+                <Link href="/custom">
                   <Button variant="primary" size="sm">
-                    <Link href="/custom">Nuevo Encargo</Link>
+                    Nuevo Encargo
                   </Button>
-                </div>
+                </Link>
               </div>
             )}
           </div>
         </div>
 
         {/* Recent Orders */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Pedidos Recientes</h2>
+        <div className="surface-card overflow-hidden">
+          <div className="px-4 py-3 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
+            <h2 className="text-sm font-medium">Pedidos Recientes</h2>
             <Link
               href="/orders"
-              className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+              className="text-xs text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
             >
-              Ver todos
+              Ver todos →
             </Link>
           </div>
 
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
             {orders.length > 0 ? (
               orders.map((order) => (
-                <div key={order.id} className="px-6 py-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-medium text-gray-900">
-                      Pedido #{order.id.slice(-6)}
-                    </h3>
+                <div key={order.id} className="px-4 py-3">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-xs font-medium">Pedido #{order.id.slice(-6)}</h3>
                     <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}
                     >
                       {order.status}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-600">${order.total_amount}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
+                      ${order.total_amount}
+                    </p>
+                    <p className="text-xs text-neutral-500">
                       {new Date(order.created_at).toLocaleDateString('es-ES')}
                     </p>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="px-6 py-8 text-center">
+              <div className="px-4 py-8 text-center">
                 <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
+                  className="mx-auto h-8 w-8 text-neutral-400 mb-2"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -301,21 +280,23 @@ async function DashboardContent() {
                     d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                   />
                 </svg>
-                <h3 className="mt-2 text-sm font-medium text-gray-900">No hay pedidos</h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <h3 className="text-xs font-medium text-neutral-900 dark:text-neutral-100 mb-1">
+                  No hay pedidos
+                </h3>
+                <p className="text-xs text-neutral-500 mb-4">
                   Explora nuestro catálogo y haz tu primer pedido
                 </p>
-                <div className="mt-6">
+                <Link href="/shop">
                   <Button variant="primary" size="sm">
-                    <Link href="/shop">Ver Catálogo</Link>
+                    Ver Catálogo
                   </Button>
-                </div>
+                </Link>
               </div>
             )}
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 

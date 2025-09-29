@@ -36,32 +36,39 @@ async function getShopData() {
 
 function ShopSkeleton() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="animate-pulse">
+    <main className="p-8 space-y-8 max-w-6xl mx-auto">
+      <div className="animate-pulse space-y-8">
         {/* Hero skeleton */}
-        <div className="h-64 bg-gray-200 rounded-lg mb-12"></div>
+        <div className="h-48 bg-neutral-200 dark:bg-neutral-800 rounded-xl"></div>
 
         {/* Collections skeleton */}
-        <div className="h-8 bg-gray-200 rounded w-48 mb-6"></div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-40 bg-gray-200 rounded-lg"></div>
-          ))}
+        <div>
+          <div className="h-6 bg-neutral-200 dark:bg-neutral-800 rounded w-32 mb-4"></div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="h-32 bg-neutral-100 dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800"
+              ></div>
+            ))}
+          </div>
         </div>
 
         {/* Products skeleton */}
-        <div className="h-8 bg-gray-200 rounded w-64 mb-6"></div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="space-y-3">
-              <div className="aspect-square bg-gray-200 rounded-lg"></div>
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-            </div>
-          ))}
+        <div>
+          <div className="h-6 bg-neutral-200 dark:bg-neutral-800 rounded w-40 mb-4"></div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <div key={i} className="space-y-3">
+                <div className="aspect-square bg-neutral-100 dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800"></div>
+                <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded w-3/4"></div>
+                <div className="h-3 bg-neutral-200 dark:bg-neutral-800 rounded w-1/2"></div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -69,63 +76,57 @@ async function ShopContent() {
   const { collections, featuredProducts } = await getShopData();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="p-8 space-y-8 max-w-6xl mx-auto">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-700 text-white mb-12">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative px-8 py-16 sm:px-12 sm:py-20 lg:px-16">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl font-bold tracking-tight mb-4 sm:text-5xl">
-              Diseños únicos para tus uñas
-            </h1>
-            <p className="text-xl text-pink-100 mb-8">
-              Explora nuestra colección de diseños exclusivos o crea el tuyo personalizado
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                variant="primary"
-                size="lg"
-                className="bg-white text-purple-600 hover:bg-gray-100"
-              >
-                Ver Catálogo
-              </Button>
-              <Link
-                href="/custom"
-                className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-purple-600 transition-colors"
-              >
-                Diseño Personalizado
-              </Link>
-            </div>
+      <section className="glass-card p-8 relative overflow-hidden">
+        <div className="relative z-10">
+          <h1 className="text-3xl font-bold tracking-tight mb-4">
+            Diseños únicos para tus uñas
+          </h1>
+          <p className="text-neutral-600 dark:text-neutral-400 mb-6 max-w-2xl">
+            Explora nuestra colección de diseños exclusivos o crea el tuyo personalizado
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button variant="primary">Ver Catálogo</Button>
+            <Link href="/custom">
+              <Button variant="outline">Diseño Personalizado</Button>
+            </Link>
           </div>
         </div>
-      </div>
+
+        {/* Acento tribal sutil */}
+        <div className="absolute top-4 right-4 w-16 h-16 opacity-10">
+          <div className="w-full h-full border-2 border-current rounded-full"></div>
+          <div className="absolute top-2 left-2 w-12 h-12 border border-current rounded-full"></div>
+        </div>
+      </section>
 
       {/* Collections */}
       {collections.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Colecciones</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <section>
+          <h2 className="text-lg font-semibold tracking-tight mb-4">Colecciones</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {collections.map((collection) => (
               <Link
                 key={collection.id}
                 href={`/shop/collections/${collection.slug}`}
-                className="group relative overflow-hidden rounded-lg bg-gray-100 aspect-[4/3] hover:shadow-lg transition-all duration-200"
+                className="group surface-card overflow-hidden aspect-[4/3] relative"
               >
                 {collection.image_url && (
                   <Image
                     src={collection.image_url}
                     alt={collection.name_i18n?.es || collection.name || ''}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-200"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-white font-semibold text-lg">
+                <div className="absolute bottom-0 left-0 right-0 p-3">
+                  <h3 className="text-white font-medium text-sm">
                     {collection.name_i18n?.es || collection.name}
                   </h3>
                   {collection.description_i18n?.es && (
-                    <p className="text-white/80 text-sm mt-1">
+                    <p className="text-white/80 text-xs mt-1">
                       {collection.description_i18n.es}
                     </p>
                   )}
@@ -133,41 +134,41 @@ async function ShopContent() {
               </Link>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
       {/* Featured Products */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Productos Destacados</h2>
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold tracking-tight">Productos Destacados</h2>
           <Link
             href="/shop/products"
-            className="text-purple-600 hover:text-purple-700 font-medium"
+            className="text-xs text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
           >
             Ver todos →
           </Link>
         </div>
 
         {featuredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {featuredProducts.map((product) => (
               <Link
                 key={product.id}
                 href={`/product/${product.slug}`}
-                className="group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200"
+                className="group surface-card overflow-hidden hover:shadow-md transition-all duration-200"
               >
-                <div className="aspect-square bg-gray-100 overflow-hidden">
+                <div className="aspect-square bg-neutral-50 dark:bg-neutral-900 overflow-hidden relative">
                   {product.image_url ? (
                     <Image
                       src={product.image_url}
                       alt={product.name_i18n?.es || product.name || ''}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-200"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    <div className="w-full h-full flex items-center justify-center text-neutral-400">
                       <svg
-                        className="w-12 h-12"
+                        className="w-8 h-8"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -183,12 +184,12 @@ async function ShopContent() {
                   )}
                 </div>
 
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">
+                <div className="p-3">
+                  <h3 className="font-medium text-sm mb-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
                     {product.name_i18n?.es || product.name}
                   </h3>
                   {product.description_i18n?.es && (
-                    <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                    <p className="text-neutral-600 dark:text-neutral-400 text-xs mb-2 line-clamp-2">
                       {product.description_i18n.es}
                     </p>
                   )}
@@ -196,7 +197,7 @@ async function ShopContent() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       {product.variants && product.variants.length > 0 && (
-                        <span className="text-lg font-bold text-purple-600">
+                        <span className="text-sm font-semibold">
                           $
                           {Math.min(
                             ...product.variants.map((v: { price: number }) => v.price),
@@ -204,14 +205,14 @@ async function ShopContent() {
                         </span>
                       )}
                       {product.collection && (
-                        <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                        <span className="text-xs text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded">
                           {product.collection.name_i18n?.es || product.collection.name}
                         </span>
                       )}
                     </div>
 
                     <svg
-                      className="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition-colors"
+                      className="w-4 h-4 text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -229,9 +230,9 @@ async function ShopContent() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
+          <div className="surface-card p-8 text-center">
             <svg
-              className="mx-auto h-12 w-12 text-gray-400"
+              className="mx-auto h-12 w-12 text-neutral-400 mb-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -243,32 +244,26 @@ async function ShopContent() {
                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
               />
             </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">
-              No hay productos disponibles
-            </h3>
-            <p className="mt-1 text-sm text-gray-500">
+            <h3 className="text-sm font-medium mb-2">No hay productos disponibles</h3>
+            <p className="text-xs text-neutral-500 mb-4">
               Pronto agregaremos nuevos diseños a nuestra colección
             </p>
           </div>
         )}
-      </div>
+      </section>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-center text-white">
-        <h2 className="text-2xl font-bold mb-4">¿No encuentras lo que buscas?</h2>
-        <p className="text-purple-100 mb-6 max-w-2xl mx-auto">
+      <section className="glass-card p-6 text-center">
+        <h2 className="text-lg font-semibold mb-3">¿No encuentras lo que buscas?</h2>
+        <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-4 max-w-2xl mx-auto">
           Crea un diseño completamente personalizado con nuestro servicio de encargos.
           Trabajamos contigo para crear las uñas perfectas para cualquier ocasión.
         </p>
-        <Button
-          variant="primary"
-          size="lg"
-          className="bg-white text-purple-600 hover:bg-gray-100"
-        >
-          <Link href="/custom">Crear Diseño Personalizado</Link>
-        </Button>
-      </div>
-    </div>
+        <Link href="/custom">
+          <Button variant="primary">Crear Diseño Personalizado</Button>
+        </Link>
+      </section>
+    </main>
   );
 }
 

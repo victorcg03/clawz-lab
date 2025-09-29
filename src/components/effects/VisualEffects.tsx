@@ -44,7 +44,7 @@ export function VisualEffects({
   return (
     <motion.div
       ref={ref}
-      className={className}
+      className={`relative ${className}`}
       style={{ y: variant === 'hero' ? y : undefined }}
       initial={variants[variant].initial}
       whileInView={variants[variant].animate}
@@ -145,7 +145,7 @@ export function MetallicHover({
 }>) {
   return (
     <motion.div
-      className={`relative overflow-hidden rounded-full ${className}`}
+      className={`relative overflow-hidden rounded-xs ${className}`}
       whileHover="hover"
       initial="initial"
     >

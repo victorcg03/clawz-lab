@@ -41,31 +41,21 @@ export function CartDrawer({ cart, isOpen, onClose }: Readonly<CartDrawerProps>)
 
   return (
     <>
-      {/* Backdrop */}
-      <button
-        className={cn(
-          'fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity border-0 cursor-pointer',
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
-        )}
-        onClick={onClose}
-        aria-label="Cerrar carrito"
-        type="button"
-      />
-
       {/* Drawer */}
       <div
         className={cn(
-          'fixed top-0 right-0 h-full w-full max-w-md bg-surface-card z-50',
+          'fixed top-0 right-0 h-screen w-full max-w-md z-50',
+          'bg-white dark:bg-neutral-900 backdrop-blur-xl',
           'transform transition-transform duration-300 ease-in-out',
-          'border-l border-metal-300/20 shadow-2xl',
+          'border-l border-neutral-300/20 shadow-2xl',
           isOpen ? 'translate-x-0' : 'translate-x-full',
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-metal-300/20">
+        <div className="flex items-center justify-between p-3 border-b border-neutral-300/20">
           <div className="flex items-center gap-2">
-            <ShoppingCart className="w-5 h-5 text-metal-600" />
-            <h2 className="text-lg font-semibold text-metal-900">
+            <ShoppingCart className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
+            <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
               Carrito ({itemCount})
             </h2>
           </div>
@@ -73,7 +63,7 @@ export function CartDrawer({ cart, isOpen, onClose }: Readonly<CartDrawerProps>)
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="hover:bg-metal-100"
+            className="hover:bg-neutral-100 dark:hover:bg-neutral-800"
           >
             <X className="w-4 h-4" />
           </Button>
@@ -84,9 +74,11 @@ export function CartDrawer({ cart, isOpen, onClose }: Readonly<CartDrawerProps>)
           {!cart || cart.cart_items.length === 0 ? (
             <div className="flex-1 flex items-center justify-center text-center p-6">
               <div>
-                <ShoppingCart className="w-12 h-12 text-metal-400 mx-auto mb-4" />
-                <p className="text-metal-600 mb-2">Tu carrito está vacío</p>
-                <p className="text-sm text-metal-500">
+                <ShoppingCart className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
+                <p className="text-neutral-600 dark:text-neutral-400 mb-2">
+                  Tu carrito está vacío
+                </p>
+                <p className="text-sm text-neutral-500 dark:text-neutral-500">
                   Agrega algunos productos para comenzar
                 </p>
               </div>
@@ -108,23 +100,23 @@ export function CartDrawer({ cart, isOpen, onClose }: Readonly<CartDrawerProps>)
                   }) => (
                     <div
                       key={item.id}
-                      className="bg-glass-card rounded-lg p-4 border border-metal-200/20"
+                      className="bg-white/60 dark:bg-neutral-800/60 backdrop-blur-sm rounded-lg p-4 border border-neutral-200/20 dark:border-neutral-700/20"
                     >
                       <div className="flex items-start gap-3">
                         <div className="flex-1">
-                          <h3 className="font-medium text-metal-900 mb-1">
+                          <h3 className="font-medium text-neutral-900 dark:text-neutral-100 mb-1">
                             {item.product_variants[0]?.products[0]?.name_i18n?.es ||
                               'Producto'}
                           </h3>
-                          <p className="text-sm text-metal-600 mb-1">
+                          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
                             SKU: {item.product_variants[0]?.sku || 'N/A'}
                           </p>
                           {item.size_profiles?.[0] && (
-                            <p className="text-sm text-metal-600 mb-2">
+                            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
                               Medidas: {item.size_profiles[0].name}
                             </p>
                           )}
-                          <p className="font-semibold text-metal-900">
+                          <p className="font-semibold text-neutral-900 dark:text-neutral-100">
                             €{(item.product_variants[0]?.price || 0).toFixed(2)}
                           </p>
                         </div>
@@ -171,10 +163,12 @@ export function CartDrawer({ cart, isOpen, onClose }: Readonly<CartDrawerProps>)
               </div>
 
               {/* Footer */}
-              <div className="border-t border-metal-300/20 p-6 space-y-4">
+              <div className="border-t border-neutral-300/20 dark:border-neutral-700/20 p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-lg font-semibold text-metal-900">Total</span>
-                  <span className="text-xl font-bold text-metal-900">
+                  <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                    Total
+                  </span>
+                  <span className="text-xl font-bold text-neutral-900 dark:text-neutral-100">
                     €{total.toFixed(2)}
                   </span>
                 </div>

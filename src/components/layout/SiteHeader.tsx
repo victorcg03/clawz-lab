@@ -41,7 +41,7 @@ export async function SiteHeader() {
   if (user) {
     const { data } = await supabase
       .from('profiles')
-      .select('name')
+      .select('full_name')
       .eq('id', user.id)
       .single();
     profile = data;
@@ -78,7 +78,7 @@ export async function SiteHeader() {
                 href="/dashboard"
                 className="text-xs font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors duration-200"
               >
-                Hola, {profile?.name || 'Usuario'}
+                Hola, {profile?.full_name || 'Usuario'}
               </Link>
               <LogoutButton />
             </div>

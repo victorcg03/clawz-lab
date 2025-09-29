@@ -34,9 +34,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const variants: Record<string, string> = {
       primary: 'btn-primary btn-shadow-sm',
       outline: 'btn-outline',
-      ghost: 'bg-transparent text-[--color-fg-muted] hover:text-[--color-fg]',
-      subtle:
-        'bg-[--color-bg-alt] text-[--color-fg] border border-[--color-border] hover:border-[--color-border-strong]',
+      ghost: 'btn-ghost',
+      subtle: 'btn-subtle',
     };
     const sizes: Record<string, string> = {
       sm: 'h-8 px-3 text-xs',

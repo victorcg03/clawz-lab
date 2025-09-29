@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/Button';
 interface Props {
   params: { slug: string };
 }
@@ -15,9 +16,9 @@ export default function ProductPage({ params }: Readonly<Props>) {
             Descripción del producto y variantes. Aquí iremos añadiendo selector de forma,
             largo, acabado, galería y lógica de medidas obligatoria.
           </p>
-          <button className="rounded-full bg-black text-white px-6 py-2.5 text-sm font-medium hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition-colors">
+          <Button className="rounded-full px-6" variant="primary">
             Añadir al carrito
-          </button>
+          </Button>
         </div>
       </div>
     </main>

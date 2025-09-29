@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { createSizeProfile, deleteSizeProfile } from '../actions';
+import { createSizeProfile, deleteSizeProfile, updateSizeProfile } from '../actions';
+import { useTranslations, useFormatter } from 'next-intl';
 
 interface ProfileLite {
   readonly id: string;
@@ -37,8 +38,8 @@ function ProfilesList({
   profiles,
   canEdit,
 }: Readonly<{ profiles: ProfileLite[]; canEdit: boolean }>) {
-  if (!profiles.length)
-    return <div className="text-sm opacity-70">No hay perfiles todavía.</div>;
+  const t = useTranslations('measure');
+  if (!profiles.length) return <div className="text-sm opacity-70">{t('empty')}</div>;
   return (
     <ul className="space-y-3 max-h-[480px] overflow-auto pr-2">
       {profiles.map((p) => (
@@ -46,21 +47,105 @@ function ProfilesList({
           key={p.id}
           className="border rounded p-3 text-sm flex items-start justify-between gap-4"
         >
-          <div>
-            <p className="font-medium">{p.name}</p>
-            <p className="text-xs opacity-60">
-              {new Date(p.created_at).toLocaleString()}
-            </p>
-          </div>
-          {canEdit && <DeleteButton id={p.id} />}
+          <EditableProfileItem profile={p} canEdit={canEdit} />
         </li>
       ))}
     </ul>
   );
 }
 
+function EditableProfileItem({
+  profile,
+  canEdit,
+}: Readonly<{ profile: ProfileLite; canEdit: boolean }>) {
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState(profile.name);
+  const [pending, setPending] = useState(false);
+  const t = useTranslations('measure');
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPending(true);
+    await updateSizeProfile(profile.id, { name });
+    setPending(false);
+    setEditing(false);
+  };
+  if (!canEdit)
+    return (
+      <div className="flex-1 flex justify-between">
+        <div>
+          <p className="font-medium">{profile.name}</p>
+          <ProfileDate created_at={profile.created_at} />
+        </div>
+      </div>
+    );
+  return (
+    <div className="flex-1 flex flex-col gap-2">
+      {!editing && (
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="font-medium">{profile.name}</p>
+            <ProfileDate created_at={profile.created_at} />
+          </div>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setEditing(true)}
+              className="text-xs underline"
+            >
+              {t('update')}
+            </button>
+            <DeleteButton id={profile.id} />
+          </div>
+        </div>
+      )}
+      {editing && (
+        <form onSubmit={onSubmit} className="flex items-center gap-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="border rounded px-2 py-1 text-xs flex-1"
+            disabled={pending}
+          />
+          <button
+            type="submit"
+            disabled={pending || !name}
+            className="text-xs bg-black text-white px-2 py-1 rounded disabled:opacity-50"
+          >
+            {pending ? t('saving') : t('update')}
+          </button>
+          <button
+            type="button"
+            onClick={() => setEditing(false)}
+            className="text-xs underline"
+            disabled={pending}
+          >
+            Cancelar
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+
+function ProfileDate({ created_at }: Readonly<{ created_at: string }>) {
+  const format = useFormatter();
+  const date = new Date(created_at);
+  // Usamos zona UTC explícita para evitar divergencias server/client en hidración
+  const label = format.dateTime(date, {
+    dateStyle: 'short',
+    timeStyle: 'short',
+    timeZone: 'UTC',
+  });
+  return (
+    <time className="text-xs opacity-60" dateTime={created_at} suppressHydrationWarning>
+      {label}
+    </time>
+  );
+}
+
 function DeleteButton({ id }: Readonly<{ id: string }>) {
   const [loading, setLoading] = useState(false);
+  const t = useTranslations('measure');
   return (
     <form
       action={async () => {
@@ -74,7 +159,7 @@ function DeleteButton({ id }: Readonly<{ id: string }>) {
         disabled={loading}
         className="text-red-600 text-xs hover:underline disabled:opacity-50"
       >
-        Eliminar
+        {t('delete')}
       </button>
     </form>
   );
@@ -83,6 +168,7 @@ function DeleteButton({ id }: Readonly<{ id: string }>) {
 function ProfileForm({ disabled }: Readonly<{ disabled: boolean }>) {
   const [state, setState] = useState<null | { ok: boolean; error?: unknown }>(null);
   const [pending, setPending] = useState(false);
+  const t = useTranslations('measure');
   const onAction = async (formData: FormData) => {
     setPending(true);
     const input: Record<string, unknown> = { name: formData.get('name') as string };
@@ -131,10 +217,10 @@ function ProfileForm({ disabled }: Readonly<{ disabled: boolean }>) {
   };
   return (
     <form action={onAction} className="space-y-4 border rounded p-4 bg-white/50">
-      <h2 className="font-medium">Nuevo perfil</h2>
+      <h2 className="font-medium">{t('new')}</h2>
       <div className="space-y-2">
         <label htmlFor="name" className="block text-xs font-medium">
-          Nombre *
+          {t('nameLabel')}
         </label>
         <input
           id="name"
@@ -142,7 +228,7 @@ function ProfileForm({ disabled }: Readonly<{ disabled: boolean }>) {
           required
           disabled={disabled || pending}
           className="border rounded px-2 py-1 w-full text-sm"
-          placeholder="Ej. Set Oval Plata"
+          placeholder={t('namePlaceholder')}
         />
       </div>
       <fieldset className="grid grid-cols-2 gap-3">
@@ -167,16 +253,14 @@ function ProfileForm({ disabled }: Readonly<{ disabled: boolean }>) {
         disabled={disabled || pending}
         className="bg-black text-white text-sm px-3 py-1.5 rounded disabled:opacity-50"
       >
-        {pending ? 'Guardando...' : 'Guardar perfil'}
+        {pending ? t('saving') : t('save')}
       </button>
       {state && !state.ok && (
         <pre className="text-xs text-red-600 whitespace-pre-wrap">
           {JSON.stringify(state.error, null, 2)}
         </pre>
       )}
-      {state?.ok && (
-        <p className="text-xs text-green-600">Perfil creado correctamente.</p>
-      )}
+      {state?.ok && <p className="text-xs text-green-600">{t('createdOk')}</p>}
     </form>
   );
 }

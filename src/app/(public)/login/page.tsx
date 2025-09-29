@@ -31,7 +31,7 @@ export default function LoginPage() {
 
   return (
     <div className="max-w-sm mx-auto py-16">
-      <h2 className="text-xl font-semibold mb-4">Iniciar sesión</h2>
+      <h1 className="text-2xl font-semibold tracking-tight mb-4">Iniciar sesión</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         data-testid="login-form"
@@ -74,10 +74,22 @@ export default function LoginPage() {
         )}
         <button
           disabled={formState.isSubmitting}
-          className="bg-black text-white px-4 py-2 rounded disabled:opacity-50"
+          className="w-full rounded-full bg-black text-white py-2.5 text-sm font-medium hover:bg-neutral-800 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition-colors"
         >
           Entrar
         </button>
+        <p className="text-xs text-neutral-600 dark:text-neutral-400">
+          ¿Olvidaste la contraseña?{' '}
+          <a href="/forgot-password" className="underline underline-offset-4">
+            Recuperar
+          </a>
+        </p>
+        <p className="text-xs text-neutral-600 dark:text-neutral-400">
+          ¿No tienes cuenta?{' '}
+          <a href="/register" className="underline underline-offset-4">
+            Crear cuenta
+          </a>
+        </p>
       </form>
     </div>
   );

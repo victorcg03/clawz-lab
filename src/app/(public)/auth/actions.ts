@@ -70,7 +70,7 @@ export async function registerAction(input: RegisterInput) {
     password,
     options: {
       data: {
-        name,
+        full_name: name,
         phone,
       },
     },
@@ -91,19 +91,7 @@ export async function registerAction(input: RegisterInput) {
     };
   }
 
-  // Crear perfil de usuario
-  const { error: profileError } = await supabase.from('profiles').insert({
-    id: authData.user.id,
-    name,
-    email,
-    phone: phone || null,
-  });
-
-  if (profileError) {
-    console.error('Error creating profile:', profileError);
-    // No retornamos error aquí porque el usuario ya se creó
-    // El perfil se puede crear después con un trigger o en el login
-  }
+  // El perfil se crea automáticamente via trigger de base de datos
 
   return {
     success: true,

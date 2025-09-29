@@ -35,7 +35,19 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(login);
   }
 
-  // (Opcional futuro) validar perfil admin antes de permitir /admin
+  // Validar perfil admin para rutas /admin
+  if (isAdmin && user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile?.is_admin) {
+      // Redirigir a dashboard normal si no es admin
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    }
+  }
 
   return res;
 }

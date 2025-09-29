@@ -1,11 +1,12 @@
 'use client';
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import { loginSchema, type LoginInput } from '../auth/schema';
 import { loginAction } from '../auth/actions';
 
@@ -17,7 +18,11 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, formState } = useForm<LoginInput>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -41,17 +46,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Inicia sesión
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-300">
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <div className="w-full max-w-sm space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight">Iniciar sesión</h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
             ¿No tienes cuenta?{' '}
             <Link
               href="/register"
-              className="font-medium text-pink-400 hover:text-pink-300 transition-colors"
+              className="font-medium underline underline-offset-4 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
             >
               Regístrate aquí
             </Link>
@@ -59,13 +62,13 @@ export default function LoginPage() {
         </div>
 
         <form
-          className="mt-8 space-y-6"
+          className="space-y-4"
           onSubmit={handleSubmit(onSubmit)}
           data-testid="login-form"
         >
           {error && (
             <div
-              className="p-3 text-sm text-red-200 bg-red-500/20 border border-red-500/30 rounded-md"
+              className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md"
               data-testid="login-error"
             >
               {error}
@@ -74,7 +77,7 @@ export default function LoginPage() {
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
                 Email
               </label>
               <Input
@@ -82,15 +85,14 @@ export default function LoginPage() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="Email"
-                variant="glass"
-                error={formState.errors.email?.message}
+                placeholder="tu@email.com"
+                error={errors.email?.message}
                 data-testid="login-email"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="sr-only">
+              <label htmlFor="password" className="block text-sm font-medium mb-2">
                 Contraseña
               </label>
               <Input
@@ -98,34 +100,25 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 autoComplete="current-password"
-                placeholder="Contraseña"
-                variant="glass"
-                error={formState.errors.password?.message}
+                placeholder="••••••••"
+                error={errors.password?.message}
                 data-testid="login-password"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-end">
             <Link
               href="/forgot-password"
-              className="text-sm text-pink-400 hover:text-pink-300 transition-colors"
+              className="text-xs text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 underline underline-offset-4 transition-colors"
             >
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
 
-          <div>
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              loading={isLoading}
-              className="w-full"
-            >
-              Iniciar sesión
-            </Button>
-          </div>
+          <Button type="submit" variant="primary" loading={isLoading} className="w-full">
+            Iniciar sesión
+          </Button>
         </form>
       </div>
     </div>

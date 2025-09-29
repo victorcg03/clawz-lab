@@ -7,7 +7,7 @@ import { VisualEffects, MetallicHover } from '@/components/effects/VisualEffects
 
 export default function LandingContent() {
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-hidden min-h-screen">
       <VisualEffects variant="hero">
         <Hero />
       </VisualEffects>
@@ -153,8 +153,8 @@ function CallToAction() {
 interface ButtonLinkProps {
   href: string;
   children: React.ReactNode;
-  variant?: import('@/components/ui/Button').ButtonProps['variant'];
-  size?: import('@/components/ui/Button').ButtonProps['size'];
+  variant?: import('@/components/layout/ui/Button').ButtonProps['variant'];
+  size?: import('@/components/layout/ui/Button').ButtonProps['size'];
   className?: string;
 }
 

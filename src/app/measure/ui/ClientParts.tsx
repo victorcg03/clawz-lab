@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/layout/ui/Button';
 import { createSizeProfile, deleteSizeProfile, updateSizeProfile } from '../actions';
 import { useTranslations, useFormatter } from 'next-intl';
 

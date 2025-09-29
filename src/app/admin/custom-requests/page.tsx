@@ -1,5 +1,7 @@
 import { supabaseServerReadonly } from '@/lib/supabase/server';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/layout/ui/Button';
+import { AdminTable, StatusBadge } from '@/components/admin/AdminTable';
+import type { Column } from '@/components/admin/AdminTable';
 
 async function getCustomRequests() {
   const supabase = await supabaseServerReadonly();
@@ -37,6 +39,19 @@ async function getCustomRequests() {
     console.error('Error fetching custom requests:', error);
     return { requests: [], error: 'Error inesperado' };
   }
+}
+
+function RequestActions({
+  request,
+}: Readonly<{ request: { id: string; status: string } }>) {
+  return (
+    <div className="flex items-center justify-end space-x-2">
+      <Button variant="outline" size="sm">
+        Ver detalles
+      </Button>
+      {request.status === 'pending_quote' && <Button size="sm">Presupuestar</Button>}
+    </div>
+  );
 }
 
 export default async function AdminCustomRequestsPage() {
@@ -92,13 +107,91 @@ export default async function AdminCustomRequestsPage() {
     return 'No especificado';
   };
 
-  const getUrgencyColor = (urgency: string) => {
-    if (urgency === 'urgent')
-      return 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300';
-    if (urgency === 'express')
-      return 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300';
-    return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300';
+  const getStatusVariant = (
+    status: string,
+  ): 'success' | 'warning' | 'error' | 'info' | 'default' => {
+    switch (status) {
+      case 'accepted':
+      case 'ready':
+        return 'success';
+      case 'pending_quote':
+      case 'quoted':
+        return 'warning';
+      case 'rejected':
+        return 'error';
+      case 'in_production':
+        return 'info';
+      default:
+        return 'default';
+    }
   };
+
+  const columns: Column<(typeof requests)[0]>[] = [
+    {
+      key: 'contact_name',
+      label: 'Cliente',
+      render: (_value, item) => (
+        <div>
+          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+            {item.contact_name}
+          </p>
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">{item.email}</p>
+        </div>
+      ),
+    },
+    {
+      key: 'shape',
+      label: 'Diseño',
+      render: (_value, item) => (
+        <div className="text-sm">
+          <div className="text-neutral-900 dark:text-neutral-100">
+            {item.shape} • {item.length}
+          </div>
+          <div className="text-xs text-neutral-500 dark:text-neutral-400">
+            {formatColors(item.colors)}
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: 'urgency',
+      label: 'Urgencia',
+      render: (value) => {
+        const urgencyStr = typeof value === 'string' ? value : 'standard';
+        const getUrgencyVariant = (): 'success' | 'warning' | 'error' => {
+          if (urgencyStr === 'urgent') return 'error';
+          if (urgencyStr === 'express') return 'warning';
+          return 'success';
+        };
+
+        return (
+          <StatusBadge status={formatUrgency(urgencyStr)} variant={getUrgencyVariant()} />
+        );
+      },
+    },
+    {
+      key: 'status',
+      label: 'Estado',
+      render: (value) => {
+        const statusStr = typeof value === 'string' ? value : '';
+        const statusInfo = formatStatus(statusStr);
+        return (
+          <StatusBadge status={statusInfo.label} variant={getStatusVariant(statusStr)} />
+        );
+      },
+    },
+    {
+      key: 'target_date',
+      label: 'Fecha objetivo',
+      render: (value) => (
+        <span className="text-sm text-neutral-600 dark:text-neutral-400">
+          {value && typeof value === 'string'
+            ? new Date(value).toLocaleDateString('es-ES')
+            : '-'}
+        </span>
+      ),
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -122,149 +215,12 @@ export default async function AdminCustomRequestsPage() {
       )}
 
       {/* Requests table */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-        {requests.length === 0 ? (
-          <div className="p-12 text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-neutral-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m4 0h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m-4 0V3a2 2 0 00-2-2h-2a2 2 0 00-2 2v2m4 0v4"
-                />
-              </svg>
-            </div>
-            <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-2">
-              No hay encargos
-            </h3>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Las solicitudes de encargos personalizados aparecerán aquí
-            </p>
-          </div>
-        ) : (
-          <>
-            <div className="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
-              <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                {requests.length} {requests.length === 1 ? 'encargo' : 'encargos'}
-              </h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-neutral-50 dark:bg-neutral-800">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-                      Cliente
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-                      Especificaciones
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-                      Estado
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-                      Urgencia
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-                      Fecha
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-                      Acciones
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800">
-                  {requests.map((request) => {
-                    const statusInfo = formatStatus(request.status);
-                    return (
-                      <tr
-                        key={request.id}
-                        className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
-                      >
-                        <td className="px-6 py-4">
-                          <div>
-                            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                              {request.contact_name}
-                            </p>
-                            <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                              {request.email}
-                            </p>
-                            {request.phone && (
-                              <p className="text-xs text-neutral-500 dark:text-neutral-500">
-                                {request.phone}
-                              </p>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="text-sm">
-                            <p className="text-neutral-900 dark:text-neutral-100">
-                              {request.shape} • {request.length}
-                            </p>
-                            <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                              {formatColors(request.colors)}
-                            </p>
-                            <p className="text-xs text-neutral-500 dark:text-neutral-500">
-                              {request.finish}
-                            </p>
-                            {request.theme && (
-                              <p className="text-xs text-neutral-500 dark:text-neutral-500">
-                                Tema: {request.theme}
-                              </p>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusInfo.color}`}
-                          >
-                            {statusInfo.label}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getUrgencyColor(request.urgency)}`}
-                          >
-                            {formatUrgency(request.urgency)}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">
-                          <p>
-                            {new Date(request.created_at).toLocaleDateString('es-ES')}
-                          </p>
-                          {request.target_date && (
-                            <p className="text-xs text-neutral-500">
-                              Objetivo:{' '}
-                              {new Date(request.target_date).toLocaleDateString('es-ES')}
-                            </p>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                          <div className="flex items-center justify-end space-x-2">
-                            <Button variant="outline" className="text-xs px-2 py-1">
-                              Ver detalles
-                            </Button>
-                            {request.status === 'pending_quote' && (
-                              <Button variant="primary" className="text-xs px-2 py-1">
-                                Presupuestar
-                              </Button>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </>
-        )}
-      </div>
+      <AdminTable
+        data={requests}
+        columns={columns}
+        emptyMessage="No hay encargos. Las solicitudes de encargos personalizados aparecerán aquí."
+        actions={(request) => <RequestActions request={request} />}
+      />
     </div>
   );
 }

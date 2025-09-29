@@ -1,9 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/ui/Textarea';
-import { Select } from '@/components/ui/Select';
+import { Button } from '@/components/layout/ui/Button';
+import { Input } from '@/components/layout/ui/Input';
+import { Textarea } from '@/components/layout/ui/Textarea';
+import { Select } from '@/components/layout/ui/Select';
 import Link from 'next/link';
 
 export default function NewProductPage() {

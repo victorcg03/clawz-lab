@@ -67,7 +67,7 @@
     "*.{ts,tsx,js,jsx}": [
       "prettier --write",
       "eslint --max-warnings=0 --no-warn-ignored",
-      "jscpd --pattern 'src/**/*.ts' --pattern 'src/**/*.tsx' --threshold 3 --reporters console --blame"
+      "jscpd --blame"
     ],
     "*.{md,json}": [
       "prettier --write"

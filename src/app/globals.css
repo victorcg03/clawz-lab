@@ -63,7 +63,7 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 18px;
-  --radius-pill: 999px;
+  --radius-pill: 5px;
 
   /* Shadows */
   --shadow-xs: 0 1px 2px -1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.04);
@@ -409,10 +409,6 @@ button {
   );
   background-size: 200% 100%;
   animation: shimmer 2.2s infinite;
-}
-::selection {
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
 }
 html {
   scroll-behavior: smooth;

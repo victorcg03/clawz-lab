@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/layout/ui/Button';
 import { measurementSchema, type MeasurementData } from '../schema';
 
 interface MeasurementStepProps {
@@ -103,6 +103,20 @@ export function MeasurementStep({
               específicas. En una implementación completa, aquí habría campos para cada
               dedo.
             </p>
+
+            <div className="mb-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  onUpdate({ skip_measurements: true });
+                  onNext();
+                }}
+                className="w-full"
+              >
+                Continuar sin medidas específicas
+              </Button>
+            </div>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
                 <h4 className="font-medium mb-2">Mano izquierda</h4>
@@ -148,9 +162,21 @@ export function MeasurementStep({
           <Button type="button" variant="outline" onClick={onBack}>
             Anterior
           </Button>
-          <Button type="submit" variant="primary">
-            Siguiente: Resumen
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => {
+                onUpdate({ skip_measurements: true });
+                onNext();
+              }}
+            >
+              Saltar medidas
+            </Button>
+            <Button type="submit" variant="primary">
+              Siguiente: Resumen
+            </Button>
+          </div>
         </div>
       </form>
     </div>

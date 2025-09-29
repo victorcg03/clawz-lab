@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/layout/ui/Button';
 import type { ContactData, DesignData, DescriptionData } from '../schema';
 
 interface WizardData {

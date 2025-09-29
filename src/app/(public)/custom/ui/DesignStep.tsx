@@ -2,9 +2,9 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Select } from '@/components/ui/Select';
+import { Button } from '@/components/layout/ui/Button';
+import { Input } from '@/components/layout/ui/Input';
+import { Select } from '@/components/layout/ui/Select';
 import { designSchema, type DesignData, SHAPES, LENGTHS, FINISHES } from '../schema';
 
 interface DesignStepProps {

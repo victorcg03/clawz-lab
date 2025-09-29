@@ -11,8 +11,8 @@ export const contactSchema = z.object({
   phone: z
     .string()
     .optional()
-    .refine((val) => !val || val.length >= 10, {
-      message: 'El teléfono debe tener al menos 10 dígitos',
+    .refine((val) => !val || /^\d{9}$/.test(val), {
+      message: 'El teléfono debe tener exactamente 9 dígitos',
     }),
   communication_preference: z.enum(['email', 'phone', 'whatsapp']).default('email'),
 });
@@ -44,9 +44,10 @@ export const designSchema = z.object({
     .refine((val) => {
       if (!val) return true;
       const date = new Date(val);
-      const now = new Date();
-      return date > now;
-    }, 'La fecha debe ser futura'),
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Set to start of today
+      return date >= today;
+    }, 'La fecha no puede ser anterior a hoy'),
   urgency: z.enum(['standard', 'express', 'urgent']).default('standard'),
 });
 
@@ -65,37 +66,34 @@ export type DescriptionData = z.infer<typeof descriptionSchema>;
 // Paso 4: Inspiración
 export const inspirationSchema = z.object({
   inspiration_urls: z
-    .array(z.string().url('URL inválida'))
+    .array(z.string().url('URL inválida').or(z.literal('')))
     .max(5, 'Máximo 5 enlaces')
-    .default([]),
+    .default([])
+    .transform((urls) => urls.filter(url => url.length > 0)), // Remove empty strings
   // Las imágenes se manejan por separado con FileList
 });
 
 export type InspirationData = z.infer<typeof inspirationSchema>;
 
 // Paso 5: Medidas
-export const measurementSchema = z
-  .object({
-    size_profile_id: z.string().uuid().optional(),
-    custom_sizes: z
-      .object({
-        left_thumb: z.number().min(1).max(30).optional(),
-        left_index: z.number().min(1).max(30).optional(),
-        left_middle: z.number().min(1).max(30).optional(),
-        left_ring: z.number().min(1).max(30).optional(),
-        left_pinky: z.number().min(1).max(30).optional(),
-        right_thumb: z.number().min(1).max(30).optional(),
-        right_index: z.number().min(1).max(30).optional(),
-        right_middle: z.number().min(1).max(30).optional(),
-        right_ring: z.number().min(1).max(30).optional(),
-        right_pinky: z.number().min(1).max(30).optional(),
-      })
-      .optional(),
-  })
-  .refine(
-    (data) => data.size_profile_id || data.custom_sizes,
-    'Debes seleccionar un perfil de medidas o introducir medidas personalizadas',
-  );
+export const measurementSchema = z.object({
+  size_profile_id: z.string().uuid().optional(),
+  custom_sizes: z
+    .object({
+      left_thumb: z.number().min(1).max(30).optional(),
+      left_index: z.number().min(1).max(30).optional(),
+      left_middle: z.number().min(1).max(30).optional(),
+      left_ring: z.number().min(1).max(30).optional(),
+      left_pinky: z.number().min(1).max(30).optional(),
+      right_thumb: z.number().min(1).max(30).optional(),
+      right_index: z.number().min(1).max(30).optional(),
+      right_middle: z.number().min(1).max(30).optional(),
+      right_ring: z.number().min(1).max(30).optional(),
+      right_pinky: z.number().min(1).max(30).optional(),
+    })
+    .optional(),
+  skip_measurements: z.boolean().default(false),
+});
 
 export type MeasurementData = z.infer<typeof measurementSchema>;
 
@@ -124,10 +122,14 @@ const customRequestBaseSchema = contactSchema
     }),
   );
 
-export const customRequestSchema = customRequestBaseSchema.refine(
-  (data) => data.size_profile_id || data.custom_sizes,
-  'Debes seleccionar un perfil de medidas o introducir medidas personalizadas',
-);
+export const customRequestSchema = customRequestBaseSchema
+  .merge(z.object({
+    skip_measurements: z.boolean().default(false),
+  }))
+  .refine(
+    (data) => data.skip_measurements || data.size_profile_id || data.custom_sizes,
+    'Debes seleccionar un perfil de medidas, introducir medidas personalizadas o saltar este paso',
+  );
 
 export type CustomRequestData = z.infer<typeof customRequestBaseSchema>;
 

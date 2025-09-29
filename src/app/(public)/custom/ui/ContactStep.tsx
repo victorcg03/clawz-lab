@@ -2,9 +2,9 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Select } from '@/components/ui/Select';
+import { Button } from '@/components/layout/ui/Button';
+import { Input } from '@/components/layout/ui/Input';
+import { Select } from '@/components/layout/ui/Select';
 import { contactSchema, type ContactData, COMMUNICATION_PREFERENCES } from '../schema';
 
 interface ContactStepProps {
@@ -73,8 +73,9 @@ export function ContactStep({ data, onUpdate, onNext }: ContactStepProps) {
             {...register('phone')}
             id="phone"
             type="tel"
-            placeholder="+34 600 000 000"
+            placeholder="600000000"
             error={errors.phone?.message}
+            maxLength={9}
           />
         </div>
 

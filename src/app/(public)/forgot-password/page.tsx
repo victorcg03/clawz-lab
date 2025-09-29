@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/layout/ui/Button';
+import { Input } from '@/components/layout/ui/Input';
 import { forgotPasswordSchema, type ForgotPasswordInput } from '../auth/schema';
 import { forgotPasswordAction } from '../auth/actions';
 
@@ -43,8 +43,8 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-8">
-        <div className="w-full max-w-sm space-y-6">
+      <div className="min-h-screen flex items-center justify-center p-8 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">
+        <div className="w-full max-w-sm bg-surface-card rounded-lg p-8 border border-metal-200/20 shadow-sm space-y-6">
           <div className="text-center space-y-4">
             <div className="w-12 h-12 mx-auto bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center">
               <svg
@@ -85,8 +85,8 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="w-full max-w-sm space-y-6">
+    <div className="min-h-screen flex items-center justify-center p-8 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">
+      <div className="w-full max-w-sm bg-surface-card rounded-lg p-8 border border-metal-200/20 shadow-sm space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight">Recuperar contraseña</h1>
           <p className="text-sm text-neutral-600 dark:text-neutral-400">

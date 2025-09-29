@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { supabaseServerReadonly } from '@/lib/supabase/server';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/layout/ui/Button';
 
 async function getShopData() {
   const supabase = await supabaseServerReadonly();

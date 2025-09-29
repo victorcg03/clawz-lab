@@ -2,8 +2,8 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button';
-import { Textarea } from '@/components/ui/Textarea';
+import { Button } from '@/components/layout/ui/Button';
+import { Textarea } from '@/components/layout/ui/Textarea';
 import { descriptionSchema, type DescriptionData } from '../schema';
 
 interface DescriptionStepProps {

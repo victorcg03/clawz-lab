@@ -33,13 +33,11 @@ export async function createCustomRequestAction(data: CustomRequestData) {
         target_date: validatedData.target_date
           ? new Date(validatedData.target_date)
           : null,
-        urgency: validatedData.urgency,
         brief: validatedData.brief,
-        measurement: {
+        measurement: validatedData.skip_measurements ? null : {
           size_profile_id: validatedData.size_profile_id || null,
           custom_sizes: validatedData.custom_sizes || null,
         },
-        communication_preference: validatedData.communication_preference,
         status: 'pending_quote',
       })
       .select()

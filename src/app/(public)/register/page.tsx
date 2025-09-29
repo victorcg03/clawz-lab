@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/layout/ui/Button';
+import { Input, PasswordInput } from '@/components/layout/ui/Input';
 import { registerSchema, type RegisterInput } from '../auth/schema';
 import { registerAction } from '../auth/actions';
 
@@ -44,8 +44,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="w-full max-w-sm space-y-6">
+    <div className="min-h-screen flex items-center justify-center p-8 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">
+      <div className="w-full max-w-sm bg-surface-card rounded-lg p-8 border border-metal-200/20 shadow-sm space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight">Crear cuenta</h1>
           <p className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -108,10 +108,9 @@ export default function RegisterPage() {
               <label htmlFor="password" className="block text-sm font-medium mb-2">
                 Contraseña
               </label>
-              <Input
+              <PasswordInput
                 {...register('password')}
                 id="password"
-                type="password"
                 autoComplete="new-password"
                 placeholder="••••••••"
                 error={errors.password?.message}
@@ -123,10 +122,9 @@ export default function RegisterPage() {
               <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
                 Confirmar contraseña
               </label>
-              <Input
+              <PasswordInput
                 {...register('confirmPassword')}
                 id="confirmPassword"
-                type="password"
                 autoComplete="new-password"
                 placeholder="••••••••"
                 error={errors.confirmPassword?.message}

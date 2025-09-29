@@ -2,8 +2,8 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/layout/ui/Button';
+import { Input } from '@/components/layout/ui/Input';
 import { inspirationSchema, type InspirationData } from '../schema';
 
 interface InspirationStepProps {

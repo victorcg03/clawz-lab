@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Stepper } from '@/components/ui/Stepper';
+import { Stepper } from '@/components/layout/ui/Stepper';
 import { ContactStep } from './ContactStep';
 import { DesignStep } from './DesignStep';
 import { DescriptionStep } from './DescriptionStep';
@@ -36,14 +36,28 @@ interface WizardData {
   measurement: Partial<MeasurementData>;
 }
 
-export function CustomWizard() {
+interface CustomWizardProps {
+  userProfile?: {
+    name: string;
+    email: string;
+    phone?: string;
+  } | null;
+}
+
+export function CustomWizard({ userProfile }: Readonly<CustomWizardProps>) {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [wizardData, setWizardData] = useState<WizardData>({
-    contact: {},
+    contact: userProfile
+      ? {
+          contact_name: userProfile.name,
+          email: userProfile.email,
+          phone: userProfile.phone,
+        }
+      : {},
     design: { colors: [], extras: [] },
     description: {},
     inspiration: { inspiration_urls: [] },

@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/layout/ui/Button';
 interface Props {
   params: { slug: string };
 }

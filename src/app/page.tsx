@@ -25,9 +25,8 @@ function Hero() {
       </h1>
       <p className="mt-6 text-sm md:text-base max-w-2xl mx-auto leading-relaxed text-neutral-600 dark:text-neutral-300">
         Diseña y encarga sets personalizados de uñas o elige modelos listos para llevar.
-        La interfaz del sitio adopta una estética inspirada en acabados cromo, metal
-        líquido y motivos tribales modernos, pero tus diseños pueden ser del estilo que
-        imagines.
+        Un proceso simple, claro y rápido para que pases de la idea al pedido sin
+        fricción.
       </p>
       <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
         <Link

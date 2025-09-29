@@ -10,9 +10,9 @@ import { forgotPasswordSchema, type ForgotPasswordInput } from '../auth/schema';
 import { forgotPasswordAction } from '../auth/actions';
 
 export default function ForgotPasswordPage() {
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -25,15 +25,14 @@ export default function ForgotPasswordPage() {
   const onSubmit = async (data: ForgotPasswordInput) => {
     setIsLoading(true);
     setError(null);
-    setSuccess(null);
 
     try {
       const result = await forgotPasswordAction(data);
 
       if (result?.error) {
         setError(result.error);
-      } else if (result?.success) {
-        setSuccess(result.message || 'Te hemos enviado un email con las instrucciones');
+      } else {
+        setSuccess(true);
       }
     } catch {
       setError('Error inesperado. Intenta de nuevo.');
@@ -44,12 +43,12 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-        <div className="max-w-md w-full space-y-8 p-8 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-          <div className="text-center">
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-500/20 mb-4">
+      <div className="min-h-screen flex items-center justify-center p-8">
+        <div className="w-full max-w-sm space-y-6">
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 mx-auto bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center">
               <svg
-                className="h-6 w-6 text-green-400"
+                className="w-6 h-6 text-green-600 dark:text-green-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -62,11 +61,20 @@ export default function ForgotPasswordPage() {
                 />
               </svg>
             </div>
-            <h2 className="text-2xl font-extrabold text-white mb-2">Email enviado</h2>
-            <p className="text-sm text-gray-300 mb-6">{success}</p>
+
+            <div className="space-y-2">
+              <h1 className="text-2xl font-semibold tracking-tight">Email enviado</h1>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Te hemos enviado un enlace para restablecer tu contraseña. Revisa tu
+                email.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center">
             <Link
               href="/login"
-              className="inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors"
+              className="text-sm font-medium underline underline-offset-4 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
             >
               Volver al login
             </Link>
@@ -77,26 +85,31 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Recuperar contraseña
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-300">
-            Ingresa tu email y te enviaremos un enlace para restablecer tu contraseña
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <div className="w-full max-w-sm space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight">Recuperar contraseña</h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            Ingresa tu email y te enviaremos un enlace para restablecer tu contraseña.
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="space-y-4"
+          onSubmit={handleSubmit(onSubmit)}
+          data-testid="forgot-password-form"
+        >
           {error && (
-            <div className="p-3 text-sm text-red-200 bg-red-500/20 border border-red-500/30 rounded-md">
+            <div
+              className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md"
+              data-testid="forgot-password-error"
+            >
               {error}
             </div>
           )}
 
           <div>
-            <label htmlFor="email" className="sr-only">
+            <label htmlFor="email" className="block text-sm font-medium mb-2">
               Email
             </label>
             <Input
@@ -104,33 +117,25 @@ export default function ForgotPasswordPage() {
               id="email"
               type="email"
               autoComplete="email"
-              placeholder="Email"
-              variant="glass"
+              placeholder="tu@email.com"
               error={errors.email?.message}
+              data-testid="forgot-password-email"
             />
           </div>
 
-          <div>
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              loading={isLoading}
-              className="w-full"
-            >
-              Enviar enlace de recuperación
-            </Button>
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/login"
-              className="text-sm text-pink-400 hover:text-pink-300 transition-colors"
-            >
-              ← Volver al login
-            </Link>
-          </div>
+          <Button type="submit" variant="primary" loading={isLoading} className="w-full">
+            Enviar enlace
+          </Button>
         </form>
+
+        <div className="text-center">
+          <Link
+            href="/login"
+            className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 underline underline-offset-4 transition-colors"
+          >
+            Volver al login
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { supabaseServerReadonly } from '@/lib/supabase/server';
-import { Button } from '@/components/ui/Button';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { Button } from '@/components/layout/ui/Button';
+import { ThemeToggle } from '@/components/layout/ui/ThemeToggle';
+import { CartIcon } from '@/components/cart/CartIcon';
 import { logoutAction } from '@/app/(public)/auth/actions';
 
 function NavLink({ href, label }: Readonly<{ href: string; label: string }>) {
@@ -67,6 +68,8 @@ export async function SiteHeader() {
 
         <div className="ml-auto flex items-center gap-3">
           <ThemeToggle />
+
+          {user && <CartIcon />}
 
           {user ? (
             // Usuario logueado

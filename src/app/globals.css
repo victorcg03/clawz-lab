@@ -1,26 +1,130 @@
 @import "tailwindcss";
 
+/* Design Tokens base */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palette neutra base */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f9f9f9;
+  --color-neutral-100: #f2f2f2;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  /* Semantic */
+  --color-bg: var(--color-neutral-0);
+  --color-bg-alt: var(--color-neutral-50);
+  --color-fg: var(--color-neutral-900);
+  --color-fg-muted: var(--color-neutral-600);
+  --color-border: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-300);
+  --color-accent: #111111;
+  --color-accent-contrast: #ffffff;
+  --color-danger: #dc2626;
+  --color-danger-bg: #fee2e2;
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  /* Shadows (suaves, glassy) */
+  --shadow-xs: 0 1px 2px -1px rgba(0,0,0,0.05),0 0 0 1px rgba(0,0,0,0.04);
+  --shadow-sm: 0 2px 4px -2px rgba(0,0,0,0.08),0 1px 3px -1px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 8px -2px rgba(0,0,0,0.10),0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-glass: 0 4px 24px -4px rgba(0,0,0,0.12),0 2px 8px -2px rgba(0,0,0,0.08);
+
+  /* Spacing scale (para utilidades custom si hiciera falta) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Typography (placeholder) */
+  --font-sans: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+  --font-mono: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+
+  /* Transitions */
+  --ease-standard: cubic-bezier(.4,0,.2,1);
+  --transition-fast: 120ms var(--ease-standard);
+  --transition-base: 180ms var(--ease-standard);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Nota: si se requiere mapear a tokens tailwind se hará en config, evitamos segundo @theme inline. */
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-bg: var(--color-neutral-950);
+    --color-bg-alt: var(--color-neutral-900);
+    --color-fg: var(--color-neutral-100);
+    --color-fg-muted: var(--color-neutral-400);
+    --color-border: var(--color-neutral-800);
+    --color-border-strong: var(--color-neutral-700);
+    --color-accent: #fafafa;
+    --color-accent-contrast: #000000;
+    --color-danger: #f87171;
+    --color-danger-bg: #4c1d1d;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utilidades específicas tokens */
+.surface-card {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background-color var(--transition-base), color var(--transition-fast), box-shadow var(--transition-fast);
+  border-radius: var(--radius-pill);
+  position: relative;
+}
+
+.btn-disabled { cursor: not-allowed; opacity: .55; }
+
+.btn-shadow-sm { box-shadow: var(--shadow-sm); }
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+.btn-primary:hover { background: #000000; }
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-fg);
+  border: 1px solid var(--color-border);
+}
+.btn-outline:hover { border-color: var(--color-fg); }
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }

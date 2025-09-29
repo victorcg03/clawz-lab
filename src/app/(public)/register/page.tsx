@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,9 +11,10 @@ import { registerSchema, type RegisterInput } from '../auth/schema';
 import { registerAction } from '../auth/actions';
 
 export default function RegisterPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -25,15 +27,14 @@ export default function RegisterPage() {
   const onSubmit = async (data: RegisterInput) => {
     setIsLoading(true);
     setError(null);
-    setSuccess(null);
 
     try {
       const result = await registerAction(data);
 
       if (result?.error) {
         setError(result.error);
-      } else if (result?.success) {
-        setSuccess(result.message || 'Cuenta creada exitosamente');
+      } else {
+        router.push('/dashboard');
       }
     } catch {
       setError('Error inesperado. Intenta de nuevo.');
@@ -43,54 +44,53 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Crear cuenta
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-300">
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <div className="w-full max-w-sm space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight">Crear cuenta</h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
             ¿Ya tienes cuenta?{' '}
             <Link
               href="/login"
-              className="font-medium text-pink-400 hover:text-pink-300 transition-colors"
+              className="font-medium underline underline-offset-4 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
             >
-              Inicia sesión
+              Inicia sesión aquí
             </Link>
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="space-y-4"
+          onSubmit={handleSubmit(onSubmit)}
+          data-testid="register-form"
+        >
           {error && (
-            <div className="p-3 text-sm text-red-200 bg-red-500/20 border border-red-500/30 rounded-md">
+            <div
+              className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md"
+              data-testid="register-error"
+            >
               {error}
-            </div>
-          )}
-
-          {success && (
-            <div className="p-3 text-sm text-green-200 bg-green-500/20 border border-green-500/30 rounded-md">
-              {success}
             </div>
           )}
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="sr-only">
-                Nombre
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
+                Nombre completo
               </label>
               <Input
                 {...register('name')}
                 id="name"
                 type="text"
                 autoComplete="name"
-                placeholder="Nombre completo"
-                variant="glass"
+                placeholder="María García"
                 error={errors.name?.message}
+                data-testid="register-name"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
                 Email
               </label>
               <Input
@@ -98,29 +98,14 @@ export default function RegisterPage() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="Email"
-                variant="glass"
+                placeholder="tu@email.com"
                 error={errors.email?.message}
+                data-testid="register-email"
               />
             </div>
 
             <div>
-              <label htmlFor="phone" className="sr-only">
-                Teléfono
-              </label>
-              <Input
-                {...register('phone')}
-                id="phone"
-                type="tel"
-                autoComplete="tel"
-                placeholder="Teléfono (opcional)"
-                variant="glass"
-                error={errors.phone?.message}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="sr-only">
+              <label htmlFor="password" className="block text-sm font-medium mb-2">
                 Contraseña
               </label>
               <Input
@@ -128,14 +113,14 @@ export default function RegisterPage() {
                 id="password"
                 type="password"
                 autoComplete="new-password"
-                placeholder="Contraseña"
-                variant="glass"
+                placeholder="••••••••"
                 error={errors.password?.message}
+                data-testid="register-password"
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="sr-only">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
                 Confirmar contraseña
               </label>
               <Input
@@ -143,40 +128,35 @@ export default function RegisterPage() {
                 id="confirmPassword"
                 type="password"
                 autoComplete="new-password"
-                placeholder="Confirmar contraseña"
-                variant="glass"
+                placeholder="••••••••"
                 error={errors.confirmPassword?.message}
+                data-testid="register-confirm-password"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                Teléfono <span className="text-neutral-500">(opcional)</span>
+              </label>
+              <Input
+                {...register('phone')}
+                id="phone"
+                type="tel"
+                autoComplete="tel"
+                placeholder="+34 600 000 000"
+                error={errors.phone?.message}
+                data-testid="register-phone"
               />
             </div>
           </div>
 
-          <div>
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              loading={isLoading}
-              className="w-full"
-            >
-              Crear cuenta
-            </Button>
-          </div>
+          <Button type="submit" variant="primary" loading={isLoading} className="w-full">
+            Crear cuenta
+          </Button>
 
-          <p className="text-xs text-gray-300 text-center">
-            Al crear una cuenta, aceptas nuestros{' '}
-            <Link
-              href="/terms"
-              className="text-pink-400 hover:text-pink-300 transition-colors"
-            >
-              términos y condiciones
-            </Link>{' '}
-            y{' '}
-            <Link
-              href="/privacy"
-              className="text-pink-400 hover:text-pink-300 transition-colors"
-            >
-              política de privacidad
-            </Link>
+          <p className="text-xs text-neutral-500 text-center">
+            Al crear tu cuenta, aceptas nuestros términos de servicio y política de
+            privacidad.
           </p>
         </form>
       </div>

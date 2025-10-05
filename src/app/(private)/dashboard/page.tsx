@@ -100,7 +100,7 @@ async function DashboardContent() {
       {/* Header */}
       <header>
         <h1 className="text-2xl font-semibold tracking-tight mb-2">
-          ¡Hola, {profile?.name || 'Usuario'}!
+          ¡Hola, {profile?.full_name || 'Usuario'}!
         </h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
           Bienvenida a tu panel de control personal

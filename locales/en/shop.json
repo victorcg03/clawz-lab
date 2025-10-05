@@ -1,0 +1,91 @@
+{
+  "title": "Shop",
+  "subtitle": "Discover our exclusive design catalog",
+  "filters": {
+    "title": "Filters",
+    "clear": "Clear filters",
+    "shape": {
+      "title": "Shape",
+      "square": "Square",
+      "round": "Round",
+      "oval": "Oval",
+      "almond": "Almond",
+      "coffin": "Coffin",
+      "stiletto": "Stiletto"
+    },
+    "length": {
+      "title": "Length",
+      "short": "Short",
+      "medium": "Medium",
+      "long": "Long",
+      "extraLong": "Extra long"
+    },
+    "finish": {
+      "title": "Finish",
+      "glossy": "Glossy",
+      "matte": "Matte",
+      "chrome": "Chrome",
+      "holographic": "Holographic"
+    },
+    "collection": {
+      "title": "Collection",
+      "classic": "Classic",
+      "modern": "Modern",
+      "artistic": "Artistic",
+      "seasonal": "Seasonal"
+    },
+    "price": {
+      "title": "Price",
+      "under25": "Under $25",
+      "25to50": "$25 - $50",
+      "50to100": "$50 - $100",
+      "over100": "Over $100"
+    }
+  },
+  "sort": {
+    "title": "Sort by",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "priceLow": "Price: low to high",
+    "priceHigh": "Price: high to low",
+    "popular": "Most popular",
+    "name": "Name A-Z"
+  },
+  "product": {
+    "viewDetails": "View details",
+    "addToCart": "Add to cart",
+    "selectSize": "Select measurements",
+    "outOfStock": "Out of stock",
+    "preOrder": "Pre-order",
+    "variants": "Variants",
+    "description": "Description",
+    "specifications": "Specifications",
+    "reviews": "Reviews",
+    "relatedProducts": "Related products"
+  },
+  "cart": {
+    "title": "Shopping cart",
+    "empty": "Your cart is empty",
+    "emptyMessage": "Browse our shop and find amazing designs",
+    "continueShopping": "Continue shopping",
+    "item": "item",
+    "items": "items",
+    "remove": "Remove",
+    "updateQuantity": "Update quantity",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "shipping": "Shipping",
+    "total": "Total",
+    "checkout": "Proceed to checkout",
+    "estimatedDelivery": "Estimated delivery"
+  },
+  "noResults": {
+    "title": "No products found",
+    "message": "Try adjusting your filters or search terms",
+    "clearFilters": "Clear all filters"
+  },
+  "loading": {
+    "products": "Loading products...",
+    "filters": "Loading filters..."
+  }
+}

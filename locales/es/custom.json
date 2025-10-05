@@ -1,0 +1,187 @@
+{
+  "title": "Diseño Personalizado",
+  "subtitle": "Crea tu diseño único paso a paso",
+  "wizard": {
+    "steps": {
+      "contact": "Contacto",
+      "design": "Diseño",
+      "description": "Descripción",
+      "inspiration": "Inspiración",
+      "measurements": "Medidas"
+    },
+    "navigation": {
+      "back": "Anterior",
+      "next": "Siguiente",
+      "finish": "Finalizar",
+      "save": "Guardar borrador"
+    }
+  },
+  "contact": {
+    "title": "Información de contacto",
+    "subtitle": "Para que podamos comunicarnos contigo sobre tu diseño",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "preferredContact": "Método de contacto preferido",
+    "contactMethods": {
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "whatsapp": "WhatsApp"
+    }
+  },
+  "design": {
+    "title": "Especificaciones del diseño",
+    "subtitle": "Define las características principales de tu diseño",
+    "shape": {
+      "title": "Forma de las uñas",
+      "description": "Elige la forma que prefieras",
+      "square": "Cuadrada",
+      "round": "Redonda",
+      "oval": "Ovalada",
+      "almond": "Almendra",
+      "coffin": "Ataúd",
+      "stiletto": "Stiletto"
+    },
+    "length": {
+      "title": "Largo deseado",
+      "description": "¿Qué tan largas las quieres?",
+      "short": "Cortas",
+      "medium": "Medianas",
+      "long": "Largas",
+      "extraLong": "Extra largas"
+    },
+    "colors": {
+      "title": "Colores principales",
+      "description": "Selecciona hasta 3 colores",
+      "placeholder": "Describe los colores o tonos que te gustan"
+    },
+    "finish": {
+      "title": "Acabado preferido",
+      "description": "¿Cómo te gusta el acabado?",
+      "glossy": "Brillante",
+      "matte": "Mate",
+      "chrome": "Cromado",
+      "holographic": "Holográfico",
+      "mixed": "Combinado"
+    },
+    "theme": {
+      "title": "Tema o estilo",
+      "description": "¿Hay algún tema específico que te guste?",
+      "placeholder": "Ej: minimalista, floral, geométrico, elegante..."
+    }
+  },
+  "description": {
+    "title": "Describe tu visión",
+    "subtitle": "Cuéntanos con detalle lo que tienes en mente",
+    "details": {
+      "title": "Descripción detallada",
+      "placeholder": "Describe tu diseño ideal, elementos específicos, patrones, texturas, o cualquier detalle importante..."
+    },
+    "occasion": {
+      "title": "Ocasión especial",
+      "placeholder": "¿Es para algún evento especial? (boda, graduación, fiesta...)"
+    },
+    "budget": {
+      "title": "Presupuesto aproximado",
+      "description": "Esto nos ayuda a crear una propuesta adecuada",
+      "ranges": {
+        "under50": "Menos de $50",
+        "50to100": "$50 - $100",
+        "100to150": "$100 - $150",
+        "over150": "Más de $150",
+        "noLimit": "Sin límite específico"
+      }
+    }
+  },
+  "inspiration": {
+    "title": "Imágenes de inspiración",
+    "subtitle": "Comparte referencias visuales que te gusten",
+    "upload": {
+      "title": "Subir imágenes",
+      "description": "Arrastra y suelta imágenes aquí o haz clic para seleccionar",
+      "formats": "Formatos: JPG, PNG, WEBP (máx. 5MB cada una)",
+      "maxFiles": "Máximo 5 imágenes"
+    },
+    "guidelines": {
+      "title": "Consejos para mejores resultados",
+      "tips": [
+        "Incluye diferentes ángulos del diseño que te gusta",
+        "Muestra detalles específicos que quieres incorporar",
+        "Las imágenes de alta calidad nos ayudan a entender mejor tu visión",
+        "Puedes incluir imágenes de diferentes diseños para combinar elementos"
+      ]
+    },
+    "optional": "Este paso es opcional pero muy recomendado"
+  },
+  "measurements": {
+    "title": "Medidas de tus uñas",
+    "subtitle": "Para crear el ajuste perfecto",
+    "options": {
+      "existing": "Usar perfil existente",
+      "new": "Crear nuevo perfil",
+      "custom": "Medidas personalizadas para este pedido"
+    },
+    "profiles": {
+      "select": "Seleccionar perfil",
+      "create": "Crear nuevo perfil",
+      "manage": "Gestionar perfiles"
+    },
+    "instructions": {
+      "title": "Cómo tomar las medidas",
+      "steps": [
+        "Usa una regla o cinta métrica",
+        "Mide el ancho de cada uña en su parte más ancha",
+        "Toma las medidas en milímetros para mayor precisión",
+        "Si no estás seguro, podemos ayudarte durante la consulta"
+      ]
+    }
+  },
+  "summary": {
+    "title": "Resumen de tu solicitud",
+    "subtitle": "Revisa todos los detalles antes de enviar",
+    "sections": {
+      "contact": "Información de contacto",
+      "design": "Especificaciones del diseño",
+      "description": "Descripción del proyecto",
+      "inspiration": "Imágenes de referencia",
+      "measurements": "Medidas seleccionadas"
+    },
+    "submit": "Enviar solicitud",
+    "submitting": "Enviando solicitud...",
+    "edit": "Editar sección"
+  },
+  "success": {
+    "title": "¡Solicitud enviada exitosamente!",
+    "subtitle": "Hemos recibido tu solicitud de diseño personalizado",
+    "nextSteps": {
+      "title": "Próximos pasos",
+      "steps": [
+        "Revisaremos tu solicitud en las próximas 24 horas",
+        "Te contactaremos para aclarar cualquier detalle",
+        "Crearemos una cotización personalizada para ti",
+        "Una vez aprobada, comenzaremos la producción"
+      ]
+    },
+    "reference": "Número de referencia",
+    "contact": "Te contactaremos pronto",
+    "dashboard": "Ver en mi panel",
+    "newRequest": "Crear nueva solicitud"
+  },
+  "status": {
+    "pending_quote": "Pendiente de cotización",
+    "quoted": "Cotizado",
+    "accepted": "Aceptado",
+    "rejected": "Rechazado",
+    "in_production": "En producción",
+    "ready": "Listo",
+    "shipped": "Enviado",
+    "delivered": "Entregado"
+  },
+  "errors": {
+    "uploadFailed": "Error al subir la imagen",
+    "invalidFile": "Archivo no válido",
+    "fileTooLarge": "El archivo es demasiado grande",
+    "tooManyFiles": "Demasiados archivos seleccionados",
+    "networkError": "Error de conexión. Inténtalo de nuevo."
+  }
+}

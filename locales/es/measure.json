@@ -1,0 +1,118 @@
+{
+  "title": "Medidas de uñas",
+  "subtitle": "Gestiona tus perfiles de medidas para un ajuste perfecto",
+  "profiles": {
+    "title": "Perfiles guardados",
+    "empty": "No tienes perfiles de medidas guardados",
+    "emptyMessage": "Crea tu primer perfil para agilizar futuras compras",
+    "create": "Crear nuevo perfil",
+    "edit": "Editar perfil",
+    "delete": "Eliminar perfil",
+    "select": "Seleccionar perfil",
+    "default": "Perfil por defecto"
+  },
+  "form": {
+    "create": {
+      "title": "Crear perfil de medidas",
+      "subtitle": "Guarda tus medidas para uso futuro"
+    },
+    "edit": {
+      "title": "Editar perfil de medidas",
+      "subtitle": "Actualiza las medidas de este perfil"
+    },
+    "profileName": "Nombre del perfil",
+    "profileNamePlaceholder": "Ej: Mis medidas, Para eventos especiales...",
+    "hands": {
+      "left": "Mano izquierda",
+      "right": "Mano derecha"
+    },
+    "fingers": {
+      "thumb": "Pulgar",
+      "index": "Índice",
+      "middle": "Medio",
+      "ring": "Anular",
+      "pinky": "Meñique"
+    },
+    "measurements": {
+      "width": "Ancho (mm)",
+      "placeholder": "Ej: 12.5"
+    },
+    "notes": "Notas adicionales",
+    "notesPlaceholder": "Cualquier información adicional sobre tus uñas...",
+    "setDefault": "Establecer como perfil por defecto",
+    "save": "Guardar perfil",
+    "cancel": "Cancelar",
+    "saving": "Guardando..."
+  },
+  "instructions": {
+    "title": "Cómo tomar las medidas correctamente",
+    "subtitle": "Sigue estos pasos para obtener medidas precisas",
+    "steps": [
+      {
+        "title": "Prepara las herramientas",
+        "description": "Necesitarás una regla o cinta métrica pequeña"
+      },
+      {
+        "title": "Posiciona la regla",
+        "description": "Coloca la regla horizontalmente sobre la uña, en su parte más ancha"
+      },
+      {
+        "title": "Mide con precisión",
+        "description": "Lee la medida en milímetros para mayor exactitud"
+      },
+      {
+        "title": "Repite para cada uña",
+        "description": "Toma las medidas de ambas manos, ya que pueden variar"
+      }
+    ],
+    "tips": {
+      "title": "Consejos importantes",
+      "list": [
+        "Las medidas pueden variar ligeramente entre las manos",
+        "Toma las medidas con las uñas limpias y secas",
+        "Si no estás seguro, es mejor medir un poco más ancho",
+        "Puedes actualizar tus medidas en cualquier momento"
+      ]
+    }
+  },
+  "validation": {
+    "profileName": {
+      "required": "El nombre del perfil es requerido",
+      "minLength": "El nombre debe tener al menos 2 caracteres",
+      "maxLength": "El nombre no puede exceder 50 caracteres"
+    },
+    "measurements": {
+      "required": "Esta medida es requerida",
+      "min": "La medida debe ser mayor a 0",
+      "max": "La medida no puede exceder 30mm",
+      "invalid": "Ingresa un número válido"
+    }
+  },
+  "actions": {
+    "deleteConfirm": {
+      "title": "¿Eliminar perfil?",
+      "message": "Esta acción no se puede deshacer",
+      "confirm": "Sí, eliminar",
+      "cancel": "Cancelar"
+    },
+    "setDefaultConfirm": {
+      "title": "¿Establecer como predeterminado?",
+      "message": "Este perfil se usará automáticamente en futuras compras",
+      "confirm": "Sí, establecer",
+      "cancel": "Cancelar"
+    }
+  },
+  "success": {
+    "created": "Perfil creado exitosamente",
+    "updated": "Perfil actualizado exitosamente",
+    "deleted": "Perfil eliminado exitosamente",
+    "defaultSet": "Perfil establecido como predeterminado"
+  },
+  "errors": {
+    "createFailed": "Error al crear el perfil",
+    "updateFailed": "Error al actualizar el perfil",
+    "deleteFailed": "Error al eliminar el perfil",
+    "loadFailed": "Error al cargar los perfiles",
+    "networkError": "Error de conexión. Inténtalo de nuevo."
+  }
+}

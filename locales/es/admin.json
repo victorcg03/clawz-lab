@@ -1,0 +1,222 @@
+{
+  "title": "Panel de administración",
+  "subtitle": "Gestiona tu negocio de diseños de uñas",
+  "navigation": {
+    "dashboard": "Panel principal",
+    "products": "Productos",
+    "orders": "Pedidos",
+    "customRequests": "Solicitudes personalizadas",
+    "customers": "Clientes",
+    "analytics": "Análisis",
+    "settings": "Configuración"
+  },
+  "dashboard": {
+    "welcome": "Bienvenido al panel de administración",
+    "stats": {
+      "todayOrders": "Pedidos hoy",
+      "pendingRequests": "Solicitudes pendientes",
+      "totalRevenue": "Ingresos totales",
+      "activeCustomers": "Clientes activos"
+    },
+    "recentActivity": "Actividad reciente",
+    "quickActions": {
+      "title": "Acciones rápidas",
+      "createProduct": "Crear producto",
+      "processOrder": "Procesar pedido",
+      "reviewRequest": "Revisar solicitud",
+      "viewAnalytics": "Ver análisis"
+    }
+  },
+  "products": {
+    "title": "Gestión de productos",
+    "subtitle": "Administra tu catálogo de diseños",
+    "create": "Crear producto",
+    "edit": "Editar producto",
+    "delete": "Eliminar producto",
+    "duplicate": "Duplicar producto",
+    "publish": "Publicar",
+    "unpublish": "Despublicar",
+    "filters": {
+      "all": "Todos",
+      "published": "Publicados",
+      "draft": "Borradores",
+      "outOfStock": "Sin stock"
+    },
+    "form": {
+      "basicInfo": "Información básica",
+      "name": "Nombre del producto",
+      "description": "Descripción",
+      "category": "Categoría",
+      "collection": "Colección",
+      "pricing": "Precios",
+      "basePrice": "Precio base",
+      "comparePrice": "Precio de comparación",
+      "media": "Imágenes",
+      "uploadImages": "Subir imágenes",
+      "variants": "Variantes",
+      "addVariant": "Agregar variante",
+      "seo": "SEO",
+      "metaTitle": "Título SEO",
+      "metaDescription": "Descripción SEO",
+      "status": "Estado",
+      "published": "Publicado",
+      "draft": "Borrador"
+    }
+  },
+  "orders": {
+    "title": "Gestión de pedidos",
+    "subtitle": "Administra todos los pedidos",
+    "filters": {
+      "all": "Todos",
+      "pending": "Pendientes",
+      "processing": "Procesando",
+      "shipped": "Enviados",
+      "delivered": "Entregados",
+      "cancelled": "Cancelados"
+    },
+    "details": {
+      "orderNumber": "Número de pedido",
+      "customer": "Cliente",
+      "date": "Fecha",
+      "status": "Estado",
+      "total": "Total",
+      "items": "Artículos",
+      "shipping": "Dirección de envío",
+      "payment": "Método de pago"
+    },
+    "actions": {
+      "viewDetails": "Ver detalles",
+      "updateStatus": "Actualizar estado",
+      "printLabel": "Imprimir etiqueta",
+      "refund": "Reembolsar",
+      "cancel": "Cancelar pedido"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "processing": "Procesando",
+      "shipped": "Enviado",
+      "delivered": "Entregado",
+      "cancelled": "Cancelado",
+      "refunded": "Reembolsado"
+    }
+  },
+  "customRequests": {
+    "title": "Solicitudes personalizadas",
+    "subtitle": "Gestiona las solicitudes de diseños personalizados",
+    "filters": {
+      "all": "Todas",
+      "pendingQuote": "Pendientes de cotización",
+      "quoted": "Cotizadas",
+      "accepted": "Aceptadas",
+      "inProduction": "En producción",
+      "ready": "Listas",
+      "shipped": "Enviadas"
+    },
+    "details": {
+      "requestNumber": "Número de solicitud",
+      "customer": "Cliente",
+      "date": "Fecha de solicitud",
+      "status": "Estado",
+      "budget": "Presupuesto",
+      "deadline": "Fecha límite",
+      "design": "Especificaciones del diseño",
+      "inspiration": "Imágenes de inspiración",
+      "measurements": "Medidas"
+    },
+    "actions": {
+      "viewDetails": "Ver detalles",
+      "createQuote": "Crear cotización",
+      "updateStatus": "Actualizar estado",
+      "sendMessage": "Enviar mensaje",
+      "archive": "Archivar"
+    },
+    "quote": {
+      "create": "Crear cotización",
+      "edit": "Editar cotización",
+      "price": "Precio cotizado",
+      "timeframe": "Tiempo de producción",
+      "notes": "Notas para el cliente",
+      "send": "Enviar cotización"
+    },
+    "messages": {
+      "title": "Mensajes con el cliente",
+      "send": "Enviar mensaje",
+      "placeholder": "Escribe tu mensaje aquí..."
+    }
+  },
+  "customers": {
+    "title": "Gestión de clientes",
+    "subtitle": "Administra tu base de clientes",
+    "details": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "totalOrders": "Total de pedidos",
+      "totalSpent": "Total gastado",
+      "lastOrder": "Último pedido",
+      "status": "Estado"
+    },
+    "actions": {
+      "viewProfile": "Ver perfil",
+      "viewOrders": "Ver pedidos",
+      "sendEmail": "Enviar correo",
+      "block": "Bloquear",
+      "unblock": "Desbloquear"
+    }
+  },
+  "analytics": {
+    "title": "Análisis y reportes",
+    "subtitle": "Métricas de rendimiento de tu negocio",
+    "timeframes": {
+      "today": "Hoy",
+      "week": "Esta semana",
+      "month": "Este mes",
+      "quarter": "Este trimestre",
+      "year": "Este año"
+    },
+    "metrics": {
+      "revenue": "Ingresos",
+      "orders": "Pedidos",
+      "customers": "Clientes",
+      "conversion": "Conversión",
+      "averageOrder": "Pedido promedio",
+      "topProducts": "Productos más vendidos",
+      "customerRetention": "Retención de clientes"
+    }
+  },
+  "table": {
+    "search": "Buscar...",
+    "noResults": "No se encontraron resultados",
+    "loading": "Cargando datos...",
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page": "Página",
+      "of": "de",
+      "showing": "Mostrando",
+      "to": "a",
+      "results": "resultados"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "view": "Ver",
+      "duplicate": "Duplicar"
+    }
+  },
+  "form": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "saving": "Guardando...",
+    "required": "Este campo es requerido",
+    "invalid": "Valor inválido"
+  },
+  "notifications": {
+    "saved": "Guardado exitosamente",
+    "deleted": "Eliminado exitosamente",
+    "error": "Ha ocurrido un error",
+    "published": "Publicado exitosamente",
+    "unpublished": "Despublicado exitosamente"
+  }
+}

@@ -1,8 +1,138 @@
 {
   "app": {
-    "name": "Clawz Lab"
+    "name": "Clawz Lab",
+    "description": "Custom nail designs and exclusive catalog",
+    "version": "1.0.0"
+  },
+  "navigation": {
+    "home": "Home",
+    "shop": "Shop",
+    "custom": "Custom",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "cart": "Cart",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "Optional",
+    "required": "Required",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "shipping": "Shipping",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "errors": {
+    "genericTitle": "Unexpected error",
+    "genericMessage": "An error occurred. Please try again.",
+    "networkTitle": "Connection error",
+    "networkMessage": "Check your internet connection and try again.",
+    "validationTitle": "Invalid data",
+    "validationMessage": "Please review the information entered.",
+    "authTitle": "Authentication error",
+    "authMessage": "Invalid credentials or expired session.",
+    "unauthorized": "You don't have permission to perform this action.",
+    "notFound": "The requested resource was not found.",
+    "serverError": "Internal server error."
   },
   "landing": {
-    "tagline": "Custom nail designs & curated catalog"
+    "tagline": "Custom nail designs and exclusive catalog",
+    "hero": {
+      "title": "Unique designs for your nails",
+      "subtitle": "Create custom designs or choose from our exclusive catalog",
+      "cta": "Get started"
+    },
+    "features": {
+      "custom": {
+        "title": "Custom Designs",
+        "description": "Create your unique design with our step-by-step wizard"
+      },
+      "catalog": {
+        "title": "Exclusive Catalog",
+        "description": "Browse our collection of premium designs"
+      },
+      "quality": {
+        "title": "Premium Quality",
+        "description": "Highest quality materials for lasting results"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Access your account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register here"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Join Clawz Lab",
+      "fullName": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "phone": "Phone (optional)",
+      "submit": "Create account",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in here"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "We'll send you a link to reset your password",
+      "email": "Email",
+      "submit": "Send link",
+      "backToLogin": "Back to sign in"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "stats": {
+      "orders": "Orders",
+      "customRequests": "Custom requests",
+      "sizeProfiles": "Size profiles"
+    },
+    "recentActivity": "Recent activity",
+    "quickActions": "Quick actions",
+    "createCustom": "Create custom design",
+    "browseShop": "Browse shop",
+    "manageSizes": "Manage measurements"
   }
 }

@@ -1,8 +1,138 @@
 {
   "app": {
-    "name": "Clawz Lab"
+    "name": "Clawz Lab",
+    "description": "Diseños de uñas personalizados y catálogo exclusivo",
+    "version": "1.0.0"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "shop": "Tienda",
+    "custom": "Personalizado",
+    "dashboard": "Panel",
+    "admin": "Administrador",
+    "cart": "Carrito",
+    "profile": "Perfil",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "yes": "Sí",
+    "no": "No",
+    "optional": "Opcional",
+    "required": "Requerido",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "country": "País",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "tax": "Impuestos",
+    "shipping": "Envío",
+    "date": "Fecha",
+    "time": "Hora",
+    "status": "Estado",
+    "actions": "Acciones"
+  },
+  "errors": {
+    "genericTitle": "Error inesperado",
+    "genericMessage": "Ha ocurrido un error. Por favor, inténtalo de nuevo.",
+    "networkTitle": "Error de conexión",
+    "networkMessage": "Verifica tu conexión a internet e inténtalo de nuevo.",
+    "validationTitle": "Datos incorrectos",
+    "validationMessage": "Por favor, revisa la información ingresada.",
+    "authTitle": "Error de autenticación",
+    "authMessage": "Credenciales incorrectas o sesión expirada.",
+    "unauthorized": "No tienes permisos para realizar esta acción.",
+    "notFound": "El recurso solicitado no fue encontrado.",
+    "serverError": "Error interno del servidor."
   },
   "landing": {
-    "tagline": "Diseños de uñas personalizados y catálogo exclusivo"
+    "tagline": "Diseños de uñas personalizados y catálogo exclusivo",
+    "hero": {
+      "title": "Diseños únicos para tus uñas",
+      "subtitle": "Crea diseños personalizados o elige de nuestro catálogo exclusivo",
+      "cta": "Comenzar ahora"
+    },
+    "features": {
+      "custom": {
+        "title": "Diseños Personalizados",
+        "description": "Crea tu diseño único con nuestro asistente paso a paso"
+      },
+      "catalog": {
+        "title": "Catálogo Exclusivo",
+        "description": "Explora nuestra colección de diseños premium"
+      },
+      "quality": {
+        "title": "Calidad Premium",
+        "description": "Materiales de la más alta calidad para resultados duraderos"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Accede a tu cuenta",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "noAccount": "¿No tienes cuenta?",
+      "registerLink": "Regístrate aquí"
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "subtitle": "Únete a Clawz Lab",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "phone": "Teléfono (opcional)",
+      "submit": "Crear cuenta",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "loginLink": "Inicia sesión aquí"
+    },
+    "forgotPassword": {
+      "title": "Recuperar contraseña",
+      "subtitle": "Te enviaremos un enlace para restablecer tu contraseña",
+      "email": "Correo electrónico",
+      "submit": "Enviar enlace",
+      "backToLogin": "Volver al inicio de sesión"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bienvenido de vuelta",
+    "stats": {
+      "orders": "Pedidos",
+      "customRequests": "Solicitudes personalizadas",
+      "sizeProfiles": "Perfiles de medidas"
+    },
+    "recentActivity": "Actividad reciente",
+    "quickActions": "Acciones rápidas",
+    "createCustom": "Crear diseño personalizado",
+    "browseShop": "Explorar tienda",
+    "manageSizes": "Gestionar medidas"
   }
 }

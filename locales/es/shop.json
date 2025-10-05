@@ -1,0 +1,91 @@
+{
+  "title": "Tienda",
+  "subtitle": "Descubre nuestro catálogo de diseños exclusivos",
+  "filters": {
+    "title": "Filtros",
+    "clear": "Limpiar filtros",
+    "shape": {
+      "title": "Forma",
+      "square": "Cuadrada",
+      "round": "Redonda",
+      "oval": "Ovalada",
+      "almond": "Almendra",
+      "coffin": "Ataúd",
+      "stiletto": "Stiletto"
+    },
+    "length": {
+      "title": "Largo",
+      "short": "Corto",
+      "medium": "Medio",
+      "long": "Largo",
+      "extraLong": "Extra largo"
+    },
+    "finish": {
+      "title": "Acabado",
+      "glossy": "Brillante",
+      "matte": "Mate",
+      "chrome": "Cromado",
+      "holographic": "Holográfico"
+    },
+    "collection": {
+      "title": "Colección",
+      "classic": "Clásica",
+      "modern": "Moderna",
+      "artistic": "Artística",
+      "seasonal": "Temporada"
+    },
+    "price": {
+      "title": "Precio",
+      "under25": "Menos de $25",
+      "25to50": "$25 - $50",
+      "50to100": "$50 - $100",
+      "over100": "Más de $100"
+    }
+  },
+  "sort": {
+    "title": "Ordenar por",
+    "newest": "Más recientes",
+    "oldest": "Más antiguos",
+    "priceLow": "Precio: menor a mayor",
+    "priceHigh": "Precio: mayor a menor",
+    "popular": "Más populares",
+    "name": "Nombre A-Z"
+  },
+  "product": {
+    "viewDetails": "Ver detalles",
+    "addToCart": "Agregar al carrito",
+    "selectSize": "Seleccionar medidas",
+    "outOfStock": "Agotado",
+    "preOrder": "Pre-orden",
+    "variants": "Variantes",
+    "description": "Descripción",
+    "specifications": "Especificaciones",
+    "reviews": "Reseñas",
+    "relatedProducts": "Productos relacionados"
+  },
+  "cart": {
+    "title": "Carrito de compras",
+    "empty": "Tu carrito está vacío",
+    "emptyMessage": "Explora nuestra tienda y encuentra diseños increíbles",
+    "continueShopping": "Continuar comprando",
+    "item": "artículo",
+    "items": "artículos",
+    "remove": "Remover",
+    "updateQuantity": "Actualizar cantidad",
+    "subtotal": "Subtotal",
+    "tax": "Impuestos",
+    "shipping": "Envío",
+    "total": "Total",
+    "checkout": "Proceder al pago",
+    "estimatedDelivery": "Entrega estimada"
+  },
+  "noResults": {
+    "title": "No se encontraron productos",
+    "message": "Intenta ajustar tus filtros o buscar otros términos",
+    "clearFilters": "Limpiar todos los filtros"
+  },
+  "loading": {
+    "products": "Cargando productos...",
+    "filters": "Cargando filtros..."
+  }
+}

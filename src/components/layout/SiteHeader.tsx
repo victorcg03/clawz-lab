@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { supabaseServerReadonly } from '@/lib/supabase/server';
 import { Button } from '@/components/layout/ui/Button';
 import { ThemeToggle } from '@/components/layout/ui/ThemeToggle';
+import { LanguageSelector } from '@/components/layout/ui/LanguageSelector';
 import { CartIcon } from '@/components/cart/CartIcon';
 import { logoutAction } from '@/app/(public)/auth/actions';
 
@@ -76,9 +77,22 @@ export async function SiteHeader() {
             <div className="flex items-center gap-3">
               <Link
                 href="/dashboard"
-                className="text-xs font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors duration-200"
+                className="flex items-center gap-2 text-xs font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors duration-200 px-2 py-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800"
               >
-                Hola, {profile?.full_name || 'Usuario'}
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+                {profile?.full_name || 'Mi Perfil'}
               </Link>
               <LogoutButton />
             </div>
@@ -96,6 +110,7 @@ export async function SiteHeader() {
                   Crear cuenta
                 </Button>
               </Link>
+              <LanguageSelector />
             </>
           )}
         </div>

@@ -4,6 +4,8 @@
  * @version 1.0.0
  */
 
+'use client';
+
 import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/cn';
 

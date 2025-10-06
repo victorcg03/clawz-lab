@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { supabaseServerReadonly } from '@/lib/supabase/server';
 import { Button } from '@/components/layout/ui/Button';
 import { ThemeToggle } from '@/components/layout/ui/ThemeToggle';
@@ -56,9 +57,20 @@ export async function SiteHeader() {
       <nav className="max-w-6xl mx-auto px-5 h-14 flex items-center gap-6 text-sm relative">
         <Link
           href="/"
-          className="font-semibold tracking-tight text-lg bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-100 hover:scale-105 transition-transform duration-200"
+          aria-label="Clawz Lab Home"
+          className="flex items-center gap-2 hover:opacity-90 transition-opacity"
         >
-          Clawz<span className="font-light">Lab</span>
+          <Image
+            src="/clawz-lab-logo.png"
+            alt="Clawz Lab"
+            width={28}
+            height={28}
+            className="rounded-md shadow-sm"
+            priority
+          />
+          <span className="font-semibold tracking-tight text-lg bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-100">
+            Clawz<span className="font-light">Lab</span>
+          </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-5">

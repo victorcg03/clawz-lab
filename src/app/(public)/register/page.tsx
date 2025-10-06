@@ -9,9 +9,13 @@ import { Button } from '@/components/layout/ui/Button';
 import { Input, PasswordInput } from '@/components/layout/ui/Input';
 import { registerSchema, type RegisterInput } from '../auth/schema';
 import { registerAction } from '../auth/actions';
+import { logger } from '@/lib/logger';
+import { useErrorNotification } from '@/components/ui';
+import { ErrorFactory } from '@/lib/errors';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { showError } = useErrorNotification();
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,11 +37,17 @@ export default function RegisterPage() {
 
       if (result?.error) {
         setError(result.error);
+        logger.auth.registerFailed(new Error(result.error));
+        showError(ErrorFactory.authentication(result.error, 'auth'));
       } else {
+        logger.auth.registerSuccess('me');
         router.push('/dashboard');
       }
-    } catch {
-      setError('Error inesperado. Intenta de nuevo.');
+    } catch (e) {
+      const msg = 'Error inesperado. Intenta de nuevo.';
+      setError(msg);
+      logger.auth.registerFailed(e instanceof Error ? e : new Error(String(e)));
+      showError(ErrorFactory.network(msg, 'auth'));
     } finally {
       setIsLoading(false);
     }

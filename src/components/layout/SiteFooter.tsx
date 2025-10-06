@@ -1,10 +1,7 @@
 export function SiteFooter() {
   return (
-    <footer className="mt-20 relative">
-      {/* Divisor metálico superior */}
-      <div className="divider-metal mb-10" />
-
-      <div className="py-10 text-center text-xs text-neutral-500 dark:text-neutral-400">
+    <footer className="relative">
+      <div className="py-8 text-center text-xs text-neutral-500 dark:text-neutral-400">
         <p className="relative inline-block">
           © {new Date().getFullYear()} Clawz Lab · Todos los derechos reservados.
           {/* Pequeño acento tribal */}

@@ -1,5 +1,6 @@
 // Extraído desde (public)/page.tsx para evitar conflicto de múltiples páginas raíz.
 import Link from 'next/link';
+import Image from 'next/image';
 // Button component no usado directamente aquí; usamos estilos de tokens en enlaces.
 import { cn } from '@/lib/cn';
 import React from 'react';
@@ -44,6 +45,21 @@ function Hero() {
         Diseños de uñas personalizados & colección ready‑to‑wear
       </h1>
 
+      {/* Marca grande con logo */}
+      <div className="mt-6 flex items-center justify-center gap-3">
+        <Image
+          src="/clawz-lab-logo.png"
+          alt="Clawz Lab"
+          width={56}
+          height={56}
+          className="rounded-md shadow"
+          priority
+        />
+        <span className="text-2xl md:text-3xl font-semibold tracking-tight">
+          Clawz<span className="font-light">Lab</span>
+        </span>
+      </div>
+
       <p className="mt-6 text-sm md:text-base max-w-2xl mx-auto leading-relaxed text-neutral-600 dark:text-neutral-300">
         Diseña y encarga sets personalizados de uñas o elige modelos listos para llevar.
         Un proceso simple, claro y rápido para que pases de la idea al pedido sin
@@ -62,6 +78,12 @@ function Hero() {
           </ButtonLink>
         </MetallicHover>
       </div>
+
+      {/* Nota de kit de preparación */}
+      <p className="mt-6 text-xs md:text-sm text-neutral-600 dark:text-neutral-300 max-w-xl mx-auto">
+        Con cada compra de un set, incluimos un kit de preparación de la uña para que te
+        duren más. Próximamente detallaremos el contenido del kit.
+      </p>
     </section>
   );
 }

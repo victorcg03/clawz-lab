@@ -50,14 +50,11 @@ function Hero() {
         <Image
           src="/clawz-lab-logo.png"
           alt="Clawz Lab"
-          width={56}
-          height={56}
+          width={256}
+          height={256}
           className="rounded-md shadow"
           priority
         />
-        <span className="text-2xl md:text-3xl font-semibold tracking-tight">
-          Clawz<span className="font-light">Lab</span>
-        </span>
       </div>
 
       <p className="mt-6 text-sm md:text-base max-w-2xl mx-auto leading-relaxed text-neutral-600 dark:text-neutral-300">
@@ -132,7 +129,7 @@ function SectionsPreview() {
 
 function CallToAction() {
   return (
-    <section className="mt-24 mb-40 px-6">
+    <section className="mt-24 px-6">
       <div className="max-w-4xl mx-auto glass-card relative overflow-hidden p-10 group">
         {/* Patrones tribales sutiles */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.08]">

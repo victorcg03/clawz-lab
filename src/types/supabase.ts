@@ -143,6 +143,7 @@ export type Database = {
           description_i18n: Json | null;
           hero_image: string | null;
           id: string;
+          image_url: string | null;
           name_i18n: Json;
           slug: string;
         };
@@ -151,6 +152,7 @@ export type Database = {
           description_i18n?: Json | null;
           hero_image?: string | null;
           id?: string;
+          image_url?: string | null;
           name_i18n: Json;
           slug: string;
         };
@@ -159,8 +161,27 @@ export type Database = {
           description_i18n?: Json | null;
           hero_image?: string | null;
           id?: string;
+          image_url?: string | null;
           name_i18n?: Json;
           slug?: string;
+        };
+        Relationships: [];
+      };
+      constants: {
+        Row: {
+          key: string;
+          updated_at: string | null;
+          value: Json;
+        };
+        Insert: {
+          key: string;
+          updated_at?: string | null;
+          value: Json;
+        };
+        Update: {
+          key?: string;
+          updated_at?: string | null;
+          value?: Json;
         };
         Relationships: [];
       };
@@ -451,6 +472,13 @@ export type Database = {
             referencedRelation: 'products';
             referencedColumns: ['id'];
           },
+          {
+            foreignKeyName: 'product_variants_product_id_fkey';
+            columns: ['product_id'];
+            isOneToOne: false;
+            referencedRelation: 'products_with_collection';
+            referencedColumns: ['id'];
+          },
         ];
       };
       products: {
@@ -461,6 +489,7 @@ export type Database = {
           created_at: string | null;
           description_i18n: Json | null;
           id: string;
+          image_url: string | null;
           name_i18n: Json;
           slug: string;
         };
@@ -471,6 +500,7 @@ export type Database = {
           created_at?: string | null;
           description_i18n?: Json | null;
           id?: string;
+          image_url?: string | null;
           name_i18n: Json;
           slug: string;
         };
@@ -481,6 +511,7 @@ export type Database = {
           created_at?: string | null;
           description_i18n?: Json | null;
           id?: string;
+          image_url?: string | null;
           name_i18n?: Json;
           slug?: string;
         };
@@ -564,7 +595,7 @@ export type Database = {
       };
       size_profiles: {
         Row: {
-          created_at: string | null;
+          created_at: string;
           id: string;
           left_index: number | null;
           left_middle: number | null;
@@ -577,10 +608,10 @@ export type Database = {
           right_pinky: number | null;
           right_ring: number | null;
           right_thumb: number | null;
-          user_id: string | null;
+          user_id: string;
         };
         Insert: {
-          created_at?: string | null;
+          created_at?: string;
           id?: string;
           left_index?: number | null;
           left_middle?: number | null;
@@ -593,10 +624,10 @@ export type Database = {
           right_pinky?: number | null;
           right_ring?: number | null;
           right_thumb?: number | null;
-          user_id?: string | null;
+          user_id: string;
         };
         Update: {
-          created_at?: string | null;
+          created_at?: string;
           id?: string;
           left_index?: number | null;
           left_middle?: number | null;
@@ -609,13 +640,26 @@ export type Database = {
           right_pinky?: number | null;
           right_ring?: number | null;
           right_thumb?: number | null;
-          user_id?: string | null;
+          user_id?: string;
         };
         Relationships: [];
       };
     };
     Views: {
-      [_ in never]: never;
+      products_with_collection: {
+        Row: {
+          active: boolean | null;
+          base_price: number | null;
+          collection: Json | null;
+          created_at: string | null;
+          description_i18n: Json | null;
+          id: string | null;
+          image_url: string | null;
+          name_i18n: Json | null;
+          slug: string | null;
+        };
+        Relationships: [];
+      };
     };
     Functions: {
       [_ in never]: never;

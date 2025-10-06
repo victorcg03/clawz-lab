@@ -24,24 +24,32 @@ interface Product {
   };
 }
 
+type ProductRow = {
+  id: string;
+  slug: string;
+  description?: string | null;
+  base_price: number;
+  image_url?: string | null;
+  is_active: boolean;
+  name?: string | null;
+  name_i18n?: { es?: string; en?: string } | null;
+  collection?: { slug: string; name_i18n?: { es?: string; en?: string } | null } | null;
+};
+
 async function getProducts(): Promise<Product[]> {
   const supabase = await supabaseServerReadonly();
 
-  const { data: products, error } = await supabase
+  const { data: productsRaw, error } = await supabase
     .from('products')
     .select(
       `
       id,
-      name,
       slug,
       description,
       base_price,
       image_url,
       is_active,
-      collections (
-        name,
-        slug
-      )
+      collection:collections ( slug, name_i18n )
     `,
     )
     .eq('is_active', true)
@@ -52,16 +60,32 @@ async function getProducts(): Promise<Product[]> {
     return [];
   }
 
-  return products.map((product) => ({
-    ...product,
-    collection:
-      Array.isArray(product.collections) && product.collections.length > 0
-        ? {
-            name: product.collections[0].name,
-            slug: product.collections[0].slug,
-          }
-        : undefined,
-  }));
+  const products = (productsRaw ?? []) as unknown as ProductRow[];
+
+  return products.map((product) => {
+    const name = (product.name_i18n?.es || product.name_i18n?.en || product.name) as
+      | string
+      | undefined;
+    const collection = product.collection
+      ? {
+          slug: product.collection.slug,
+          name:
+            product.collection.name_i18n?.es ||
+            product.collection.name_i18n?.en ||
+            'Colección',
+        }
+      : undefined;
+    return {
+      id: product.id,
+      slug: product.slug,
+      description: product.description ?? undefined,
+      base_price: product.base_price,
+      image_url: product.image_url ?? undefined,
+      is_active: product.is_active,
+      name: name || 'Producto',
+      collection,
+    } as Product;
+  });
 }
 
 function ProductCard({ product }: Readonly<{ product: Product }>) {

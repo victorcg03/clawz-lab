@@ -44,13 +44,12 @@ export function LanguageSelector() {
     languages.find((lang) => lang.code === currentLang) || languages[0];
 
   return (
-    <div className="relative">
+    <div className="relative min-w-16">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-2 py-1 text-xs font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors duration-200 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800"
         aria-label="Seleccionar idioma"
       >
-        <span className="text-sm">{currentLanguage.flag}</span>
         <span>{currentLanguage.code.toUpperCase()}</span>
         <svg
           className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
@@ -79,7 +78,6 @@ export function LanguageSelector() {
                   : 'text-neutral-600 dark:text-neutral-400'
               }`}
             >
-              <span className="text-sm">{lang.flag}</span>
               <span>{lang.name}</span>
             </button>
           ))}

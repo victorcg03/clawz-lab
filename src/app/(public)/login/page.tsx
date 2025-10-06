@@ -9,11 +9,15 @@ import { Button } from '@/components/layout/ui/Button';
 import { Input, PasswordInput } from '@/components/layout/ui/Input';
 import { loginSchema, type LoginInput } from '../auth/schema';
 import { loginAction } from '../auth/actions';
+import { logger } from '@/lib/logger';
+import { useErrorNotification } from '@/components/ui';
+import { ErrorFactory } from '@/lib/errors';
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectPath = searchParams.get('redirect') || '/dashboard';
+  const { showError } = useErrorNotification();
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,11 +39,17 @@ function LoginForm() {
 
       if (result?.error) {
         setError(result.error);
+        logger.auth.loginFailed(new Error(result.error));
+        showError(ErrorFactory.authentication(result.error, 'auth'));
       } else {
+        logger.auth.loginSuccess('me');
         router.push(redirectPath);
       }
-    } catch {
-      setError('Error inesperado. Intenta de nuevo.');
+    } catch (e) {
+      const msg = 'Error inesperado. Intenta de nuevo.';
+      setError(msg);
+      logger.auth.loginFailed(e instanceof Error ? e : new Error(String(e)));
+      showError(ErrorFactory.network(msg, 'auth'));
     } finally {
       setIsLoading(false);
     }

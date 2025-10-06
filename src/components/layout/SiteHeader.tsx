@@ -63,14 +63,11 @@ export async function SiteHeader() {
           <Image
             src="/clawz-lab-logo.png"
             alt="Clawz Lab"
-            width={28}
-            height={28}
+            width={85}
+            height={85}
             className="rounded-md shadow-sm"
             priority
           />
-          <span className="font-semibold tracking-tight text-lg bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-100">
-            Clawz<span className="font-light">Lab</span>
-          </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-5">
@@ -106,6 +103,7 @@ export async function SiteHeader() {
                 </svg>
                 {profile?.full_name || 'Mi Perfil'}
               </Link>
+              <LanguageSelector />
               <LogoutButton />
             </div>
           ) : (

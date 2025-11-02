@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import { supabaseServer } from '@/lib/supabase/server';
+import { z } from 'zod';
 import {
   loginSchema,
   registerSchema,
@@ -38,11 +39,17 @@ export async function loginAction(input: LoginInput) {
   });
 
   if (error) {
+    const raw = (error.message || '').toLowerCase();
+    const needsVerification = raw.includes('confirm') || raw.includes('not confirmed');
+    let msg = 'Error al iniciar sesión. Intenta de nuevo.';
+    if (raw.includes('invalid login credentials')) msg = 'Credenciales inválidas';
+    if (needsVerification)
+      msg =
+        'Debes confirmar tu email antes de iniciar sesión. Revisa tu bandeja o reenvía el correo.';
+
     return {
-      error:
-        error.message === 'Invalid login credentials'
-          ? 'Credenciales inválidas'
-          : 'Error al iniciar sesión. Intenta de nuevo.',
+      error: msg,
+      ...(needsVerification ? { needsVerification: true as const } : {}),
     };
   }
 
@@ -187,9 +194,10 @@ export async function resetPasswordAction(input: ResetPasswordInput) {
       error: 'Error al actualizar la contraseña. Intenta de nuevo.',
     };
   }
-
+  // Evitamos redirect() porque este action se invoca desde el cliente
+  // después de exchangeCodeForSession; dejamos que el cliente decida navegación
   revalidatePath('/', 'layout');
-  redirect('/dashboard');
+  return { success: true } as const;
 }
 
 export async function logoutAction() {
@@ -204,4 +212,27 @@ export async function logoutAction() {
 
   revalidatePath('/', 'layout');
   redirect('/login');
+}
+
+// Reenviar correo de verificación de cuenta
+const resendSchema = z.object({ email: z.string().email() });
+export async function resendVerificationAction(input: { email: string }) {
+  const supabase = await supabaseServer();
+  const validated = resendSchema.safeParse(input);
+  if (!validated.success) {
+    return { error: 'Email inválido' } as const;
+  }
+
+  const { email } = validated.data;
+  // Supabase v2: resend supports types: 'signup' | 'email_change' | 'recovery'
+  const { error } = await supabase.auth.resend({ type: 'signup', email });
+  if (error) {
+    return {
+      error: 'No se pudo reenviar el correo de verificación. Intenta más tarde.',
+    } as const;
+  }
+  return {
+    success: true,
+    message: 'Te enviamos un correo para confirmar tu cuenta.',
+  } as const;
 }

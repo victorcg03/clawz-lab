@@ -1,6 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import { supabaseServer } from '@/lib/supabase/server';
 import {
@@ -45,8 +46,26 @@ export async function loginAction(input: LoginInput) {
     };
   }
 
-  revalidatePath('/', 'layout');
-  redirect('/dashboard');
+  // Insert audit log for successful login (now we should have a session cookies set)
+  try {
+    const { data: userData } = await supabase.auth.getUser();
+    const userId = userData.user?.id;
+    if (userId) {
+      await supabase.from('audit_logs').insert({
+        entity: 'user',
+        entity_id: userId,
+        action: 'login',
+        actor_id: userId,
+        meta: { method: 'password' },
+      });
+    }
+  } catch (e) {
+    console.warn('[audit] could not record login event', e);
+  }
+
+  // Evitamos redirect() desde server action porque el cliente la invoca imperativamente
+  // y el redirect lanza una excepción controlada que el cliente interpreta como error.
+  return { success: true } as const;
 }
 
 export async function registerAction(input: RegisterInput) {
@@ -92,6 +111,20 @@ export async function registerAction(input: RegisterInput) {
   }
 
   // El perfil se crea automáticamente via trigger de base de datos
+
+  // Marcar registro reciente con cookie efímera (para /register/success)
+  try {
+    const cookieStore = await cookies();
+    cookieStore.set('just_registered', '1', {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: true,
+      maxAge: 60 * 5, // 5 minutos
+    });
+  } catch (e) {
+    console.warn('[auth] could not set just_registered cookie', e);
+  }
 
   return {
     success: true,

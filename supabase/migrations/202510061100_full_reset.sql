@@ -217,6 +217,7 @@ alter table public.custom_requests enable row level security;
 alter table public.custom_request_media enable row level security;
 alter table public.quotes enable row level security;
 alter table public.messages enable row level security;
+alter table public.audit_logs enable row level security;
 
 -- Profiles
 drop policy if exists "profiles_self" on public.profiles;
@@ -314,6 +315,20 @@ create policy "messages_owner" on public.messages
     )
   );
 
+-- Audit logs RLS: authenticated users can insert and read their own entries
+drop policy if exists audit_logs_insert_own on public.audit_logs;
+drop policy if exists audit_logs_select_own on public.audit_logs;
+create policy audit_logs_insert_own on public.audit_logs
+  for insert to authenticated
+  with check (
+    actor_id = (select auth.uid())
+  );
+create policy audit_logs_select_own on public.audit_logs
+  for select to authenticated
+  using (
+    actor_id = (select auth.uid())
+  );
+
 -- 6) Trigger to auto-create profile on user signup
 create or replace function public.handle_new_user()
 returns trigger
@@ -362,6 +377,7 @@ create index if not exists idx_messages_request_id on public.messages(request_id
 
 create index if not exists idx_audit_logs_entity on public.audit_logs(entity, entity_id);
 create index if not exists idx_audit_logs_actor_id on public.audit_logs(actor_id);
+create index if not exists idx_audit_logs_actor_created on public.audit_logs(actor_id, created_at desc);
 
 create index if not exists idx_size_profiles_user_id on public.size_profiles(user_id);
 

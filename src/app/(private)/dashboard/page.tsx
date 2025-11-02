@@ -4,6 +4,9 @@ import ClientToast from './ui/ClientToast';
 import { supabaseServerReadonly } from '@/lib/supabase/server';
 import { Button } from '@/components/layout/ui/Button';
 
+// Esta página usa cookies (sesión) y no puede ser prerenderizada de forma estática
+export const dynamic = 'force-dynamic';
+
 async function getDashboardData() {
   const supabase = await supabaseServerReadonly();
   const {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import { useForm } from 'react-hook-form';
@@ -10,7 +10,7 @@ import { resetPasswordAction } from '../auth/actions';
 import { Button } from '@/components/layout/ui/Button';
 import { PasswordInput } from '@/components/layout/ui/Input';
 
-export default function ResetPasswordPage() {
+function ResetPasswordPageInner() {
   const router = useRouter();
   const search = useSearchParams();
   const [status, setStatus] = useState<
@@ -188,5 +188,21 @@ export default function ResetPasswordPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-8">
+          <div className="text-sm text-neutral-600 dark:text-neutral-400">
+            Cargando...
+          </div>
+        </div>
+      }
+    >
+      <ResetPasswordPageInner />
+    </Suspense>
   );
 }

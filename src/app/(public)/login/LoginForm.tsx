@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/layout/ui/Button';
 import { Input, PasswordInput } from '@/components/layout/ui/Input';
 import { loginSchema, type LoginInput } from '../auth/schema';
-import { loginAction } from '../auth/actions';
+import { loginAction, resendVerificationAction } from '../auth/actions';
 import { logger } from '@/lib/logger';
 import { useErrorNotification } from '@/components/ui';
 import { ErrorFactory } from '@/lib/errors';
@@ -21,10 +21,13 @@ function LoginFormInner() {
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [resendMsg, setResendMsg] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -39,6 +42,7 @@ function LoginFormInner() {
 
       if (result?.error) {
         setError(result.error);
+        setResendMsg(null);
         logger.auth.loginFailed(new Error(result.error));
         showError(ErrorFactory.authentication(result.error, 'auth'));
       } else {
@@ -52,6 +56,26 @@ function LoginFormInner() {
       showError(ErrorFactory.network(msg, 'auth'));
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const onResend = async () => {
+    try {
+      setIsResending(true);
+      setResendMsg(null);
+      const email = getValues('email');
+      if (!email) {
+        setResendMsg('Introduce tu email para reenviar la verificación.');
+        return;
+      }
+      const res = await resendVerificationAction({ email });
+      if ('error' in res && res.error) {
+        setResendMsg(res.error);
+      } else {
+        setResendMsg(res.message || 'Hemos reenviado el correo de verificación.');
+      }
+    } finally {
+      setIsResending(false);
     }
   };
 
@@ -78,10 +102,28 @@ function LoginFormInner() {
         >
           {error && (
             <div
-              className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md"
+              className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md space-y-2"
               data-testid="login-error"
             >
-              {error}
+              <div>{error}</div>
+              {error.toLowerCase().includes('confirmar tu email') && (
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="subtle"
+                    loading={isResending}
+                    onClick={onResend}
+                  >
+                    Reenviar verificación
+                  </Button>
+                  {resendMsg && (
+                    <span className="text-xs text-neutral-700 dark:text-neutral-300">
+                      {resendMsg}
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
